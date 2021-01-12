@@ -13,11 +13,11 @@
 
 # yarn
 .yarn/*
-!.yarn/cache
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+.pnp.*
 
 # misc
 .DS_Store
