@@ -1,0 +1,13 @@
+{
+  "extends": ["react-app", "airbnb", "plugin:jsx-a11y/recommended"],
+  "plugins": ["jsx-a11y"],
+  "rules": {
+    "semi": "error",
+    "linebreak-style": 0,
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "comma-dangle": ["error", "never"],
+    "object-curly-newline": ["error", "never"],
+    "react/jsx-one-expression-per-line": [1, { "allow": "single-child" }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+  }
+}
