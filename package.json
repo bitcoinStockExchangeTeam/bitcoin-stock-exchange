@@ -39,7 +39,6 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^7.17.0",
     "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^7.1.0",
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.22.1",
@@ -54,10 +53,9 @@
   "hooks": {
     "pre-commit": "lint-staged"
   },
-  "lint-staged": {
+  "lint-staged":{
     "src/**/*.(js|jsx)": [
-      "eslint --fix",
-      "git add"
+      "eslint src/**/*.{js|jsx}"
     ]
   }
 }
