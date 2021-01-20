@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.1] - 2020-01-20
-
 ### Added
 
 - Sass preprocessor integration.
@@ -20,5 +18,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CHANGELOG file [@rezik007](https://github.com/rezik007).
 
 [unreleased]: https://github.com/Mrozelek/bitcoin-stock-exchange/compare/v0.1.0...HEAD
-[0.1.1]: https://github.com/Mrozelek/bitcoin-stock-exchange/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/Mrozelek/bitcoin-stock-exchange/compare/v0.1.0
