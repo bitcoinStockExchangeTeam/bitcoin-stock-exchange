@@ -1,0 +1,3 @@
+src/**/*.stories.js
+# should be removed in future, defined only to push predefined storybook components
+src/**/*.js
