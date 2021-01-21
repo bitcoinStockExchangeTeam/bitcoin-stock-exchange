@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Sass preprocessor integration.
+
 ## [0.1.0] - 2020-01-11
 
 ### Added
