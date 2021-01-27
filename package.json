@@ -54,12 +54,14 @@
     "stylelint": "^13.7.2",
     "stylelint-scss": "^3.18.0"
   },
-  "hooks": {
-    "pre-commit": "lint-staged"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "src/**/*.(js|jsx)": [
-      "eslint src/**/*.{js|jsx}"
+      "eslint src/**/*.{js,jsx}"
     ],
     "src/**/*.(scss)": [
       "stylelint src/**/*.{scss}"
