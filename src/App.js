@@ -7,7 +7,7 @@ import Home from './components/Home';
 function App() {
   return (
     <Router>
-      <div Style="height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+      <div>
         <p>Routing example</p>
         <nav>
           <ul>
