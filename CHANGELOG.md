@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Sass preprocessor integration.
 - React router.
 
+### Fixed
+
+- Husky not working due to incorrect configuration.
+
 ## [0.1.0] - 2020-01-11
 
 ### Added
