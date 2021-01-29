@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import './button.css';
@@ -39,12 +40,9 @@ Button.propTypes = {
   /**
    * Optional click handler
    */
-  onClick: PropTypes.func,
-};
+  onClick: PropTypes.func };
 
-Button.defaultProps = {
-  backgroundColor: null,
+Button.defaultProps = { backgroundColor: null,
   primary: false,
   size: 'medium',
-  onClick: undefined,
-};
+  onClick: undefined };
