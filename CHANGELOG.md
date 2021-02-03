@@ -7,22 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2021-02-03
+
 ### Added
 
-- Storybook
-- Github actions CI
+- Storybook.
+- Github actions CI.
 - Sass preprocessor integration.
 - React router.
-
-### Fixed
-
-- Husky not working due to incorrect configuration.
-
-## [0.1.0] - 2020-01-11
-
-### Added
-
+- Eslint.
+- Stylelint.
+- Integration with Husky.
+- Yarn 2.
 - CHANGELOG file [@rezik007](https://github.com/rezik007).
 
-[unreleased]: https://github.com/Mrozelek/bitcoin-stock-exchange/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/Mrozelek/bitcoin-stock-exchange/compare/v0.1.0
+[unreleased]: https://github.com/Mrozelek/bitcoin-stock-exchange/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Mrozelek/bitcoin-stock-exchange/releases/tag/v1.0.0
