@@ -6,7 +6,7 @@
     "linebreak-style": 0,
     "quotes": [2, "single", { "avoidEscape": true }],
     "comma-dangle": ["error", "never"],
-    "object-curly-newline": ["error", "never"],
+    "object-curly-newline": ["error", { "multiline": true }],
     "react/jsx-one-expression-per-line": [1, { "allow": "single-child" }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
