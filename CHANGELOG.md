@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Redux with dev tools configuration.
+- Redux-thunk middleware.
+- React-router connected with Redux.
+
+### Changed
+- ESLint expects line break for multiple elements in brackets.
+
 ## [1.0.0] - 2021-02-03
 
 ### Added

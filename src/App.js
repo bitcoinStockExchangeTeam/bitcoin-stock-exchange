@@ -1,14 +1,24 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './App.scss';
 import About from './components/About';
 import Home from './components/Home';
 
 function App() {
+  const counter = useSelector((state) => state.counterReducer);
+  const isLogged = useSelector((state) => state.loggedReducer);
   return (
-    <Router>
+    <>
       <div>
-        <p>Routing example</p>
+        <p>
+          Counter
+          {` ${counter}`}
+        </p>
+        <p>
+          Logged:
+          {` ${isLogged ? 'yes' : 'no'}`}
+        </p>
         <nav>
           <ul>
             <li>
@@ -24,7 +34,7 @@ function App() {
           <Route path="/" component={Home} />
         </Switch>
       </div>
-    </Router>
+    </>
   );
 }
 
