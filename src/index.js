@@ -1,29 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
-import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
+import { ConnectedRouter } from 'connected-react-router';
+import configureStore, { history } from './configureStore';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import rootReducer from './reducers';
+import './index.scss';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const enhancer = composeEnhancers(
-  applyMiddleware(thunk)
-);
-
-/* eslint-disable no-underscore-dangle */
-const store = createStore(
-  rootReducer,
-  enhancer
-);
-/* eslint-enable */
+const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
