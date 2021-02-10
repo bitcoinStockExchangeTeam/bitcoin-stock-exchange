@@ -8,7 +8,6 @@
     "comma-dangle": ["error", "never"],
     "object-curly-newline": ["error", "never"],
     "react/jsx-one-expression-per-line": [1, { "allow": "single-child" }],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "no-underscore-dangle": "off"
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }

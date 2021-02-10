@@ -5832,8 +5832,8 @@ __metadata:
     react-redux: ^7.2.2
     react-router-dom: ^5.2.0
     react-scripts: 4.0.1
-    react-thunk: ^1.0.0
     redux: ^4.0.5
+    redux-thunk: ^2.3.0
     stylelint: ^13.7.2
     stylelint-scss: ^3.18.0
     web-vitals: ^0.2.4
@@ -17184,15 +17184,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-thunk@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "react-thunk@npm:1.0.0"
-  peerDependencies:
-    react: ~0.14.0 || ^15.0.0
-  checksum: c660943235c21b00de19af00b7d40391f06ac574cd87e658ee5f26663cea82f4069935430f9b386f6285e54d7d2f30986ef06bc7bdd9ecff18e7535f9d6f9b92
-  languageName: node
-  linkType: hard
-
 "react@npm:^17.0.1":
   version: 17.0.1
   resolution: "react@npm:17.0.1"
@@ -17358,6 +17349,13 @@ fsevents@~2.1.2:
     indent-string: ^4.0.0
     strip-indent: ^3.0.0
   checksum: 78c8aa0a1076f47e0e198bfc8a9aa7d4ae3163c6951bd5de1015e47661bba62ea36573337bbeb4b309b48cc71954edbe43ae4aa3163db1996a781b757c5c47d7
+  languageName: node
+  linkType: hard
+
+"redux-thunk@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "redux-thunk@npm:2.3.0"
+  checksum: 2d7210b88cef244384ab15bfe0c0f79a7d5a2fe059825da121121ec75378b175860695fafd5265386a0fd4b86212cc49e5972825f7bc9f803ad8753229f0258b
   languageName: node
   linkType: hard
 
