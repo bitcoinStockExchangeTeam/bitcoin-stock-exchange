@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './App.scss';
 import About from './components/About';
@@ -9,7 +9,7 @@ function App() {
   const counter = useSelector((state) => state.counterReducer);
   const isLogged = useSelector((state) => state.loggedReducer);
   return (
-    <Router>
+    <>
       <div>
         <p>
           Counter
@@ -34,7 +34,7 @@ function App() {
           <Route path="/" component={Home} />
         </Switch>
       </div>
-    </Router>
+    </>
   );
 }
 

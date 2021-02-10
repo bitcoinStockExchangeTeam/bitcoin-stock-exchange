@@ -1,4 +1,4 @@
-const loggedReducer = (state = false, action) => {
+export default (state = false, action) => {
   switch (action.type) {
     case 'SIGN_IN':
       return !state;
@@ -6,5 +6,3 @@ const loggedReducer = (state = false, action) => {
       return state;
   }
 };
-
-export default loggedReducer;
