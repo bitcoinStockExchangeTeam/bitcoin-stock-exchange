@@ -25,13 +25,29 @@ const states = {
   BRIGHT: 'bright'
 };
 
+function isParagraph(type) {
+  return type.includes('paragraph');
+}
+
+function isHeading(type) {
+  return type.includes('heading');
+}
+
+function getHeadingSize(type) {
+  if (!isHeading(type)) throw new Error('Type is not heading');
+  return type.slice(-1);
+}
+
 function selectTag(type) {
-  if (type.includes('paragraph')) {
+  if (isParagraph(type)) {
     return 'p';
   }
-  if (type.includes('heading')) {
-    return `h${type.slice(-1)}`;
+
+  if (isHeading(type)) {
+    const headerSize = getHeadingSize(type);
+    return `h${headerSize}`;
   }
+
   return type;
 }
 
@@ -48,6 +64,27 @@ export default function Text({ text, type, state }) {
 
 Text.propTypes = {
   text: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  state: PropTypes.string.isRequired
+  type: PropTypes.oneOf([
+    'HEADING_1',
+    'HEADING_2',
+    'HEADING_3',
+    'HEADING_4',
+    'HEADING_5',
+    'HEADING_6',
+    'PARAGRAPH_1',
+    'PARAGRAPH_2',
+    'LABEL'
+  ]).isRequired,
+  state: PropTypes.oneOf([
+    'PRIMARY',
+    'SECONDARY',
+    'MUTED',
+    'ACCENT',
+    'WARNING',
+    'SUCCESS',
+    'ERROR',
+    'BRIGHT'
+  ])
 };
+
+Text.defaultProps = { state: 'PRIMARY' };

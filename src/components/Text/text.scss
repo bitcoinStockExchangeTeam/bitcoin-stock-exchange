@@ -1,6 +1,14 @@
 @import '../../colors';
 
-%text {
+.heading-1,
+.heading-2,
+.heading-3,
+.heading-4,
+.heading-5,
+.heading-6,
+.paragraph-1,
+.paragraph-2,
+.label {
   font-family: 'IBM Plex Sans', sans-serif;
   font-style: normal;
 
@@ -35,18 +43,6 @@
   &--bright {
     color: $bright;
   }
-}
-
-.heading-1,
-.heading-2,
-.heading-3,
-.heading-4,
-.heading-5,
-.heading-6,
-.paragraph-1,
-.paragraph-2,
-.label {
-  @extend %text;
 }
 
 .heading-1,
