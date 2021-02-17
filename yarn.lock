@@ -5829,6 +5829,7 @@ __metadata:
     husky: ^4.3.7
     lint-staged: ^10.5.3
     node-sass: 4.14.1
+    prop-types: ^15.7.2
     react: ^17.0.1
     react-dom: ^17.0.1
     react-redux: ^7.2.2
@@ -5838,7 +5839,6 @@ __metadata:
     redux-thunk: ^2.3.0
     stylelint: ^13.7.2
     stylelint-scss: ^3.18.0
-    web-vitals: ^0.2.4
   languageName: unknown
   linkType: soft
 
@@ -20735,13 +20735,6 @@ resolve@1.18.1:
   version: 1.1.4
   resolution: "web-namespaces@npm:1.1.4"
   checksum: 0899d2a4a088b15761b6234ff6610f9598112d58f27adad86f7881ad51631317b47033bfa84cdeb62a37c8b6c3ece618f4ff720fd42c99f4907a1d9390c9dae0
-  languageName: node
-  linkType: hard
-
-"web-vitals@npm:^0.2.4":
-  version: 0.2.4
-  resolution: "web-vitals@npm:0.2.4"
-  checksum: f7565075a9a57428656d848ba48fd85dfebe6af1a82c77f947b5112838b6e14d0d76768f438e6b25cef3fb57f8d5b3595b0bbc20e2c9bdf9761fd0a2c138ca61
   languageName: node
   linkType: hard
 

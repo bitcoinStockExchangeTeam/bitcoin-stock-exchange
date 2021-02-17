@@ -1,0 +1,110 @@
+@import '../../colors';
+
+%text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-style: normal;
+
+  &--primary {
+    color: $primary;
+  }
+
+  &--secondary {
+    color: $secondary;
+  }
+
+  &--muted {
+    color: $muted;
+  }
+
+  &--accent {
+    color: $accent;
+  }
+
+  &--warning {
+    color: $warning;
+  }
+
+  &--success {
+    color: $success;
+  }
+
+  &--error {
+    color: $error;
+  }
+
+  &--bright {
+    color: $bright;
+  }
+}
+
+.heading-1,
+.heading-2,
+.heading-3,
+.heading-4,
+.heading-5,
+.heading-6,
+.paragraph-1,
+.paragraph-2,
+.label {
+  @extend %text;
+}
+
+.heading-1,
+.heading-2,
+.heading-3,
+.heading-4,
+.heading-5,
+.heading-6 {
+  font-weight: 600;
+}
+
+.paragraph-1,
+.paragraph-2,
+.label {
+  font-weight: 400;
+}
+
+.heading-1 {
+  font-size: 72px;
+  line-height: 86px;
+}
+
+.heading-2 {
+  font-size: 64px;
+  line-height: 76px;
+}
+
+.heading-3 {
+  font-size: 56px;
+  line-height: 68px;
+}
+
+.heading-4 {
+  font-size: 34px;
+  line-height: 44px;
+}
+
+.heading-5 {
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.heading-6 {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.paragraph-1 {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.paragraph-2 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.label {
+  font-size: 12px;
+  line-height: 18px;
+}
