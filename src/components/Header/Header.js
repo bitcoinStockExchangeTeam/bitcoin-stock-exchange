@@ -1,11 +1,10 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Button } from '../Button/Button';
+import Button from '../Button/Button';
 import './header.css';
 
-export const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
+const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
   <header>
     <div className="wrapper">
       <div>
@@ -41,9 +40,13 @@ export const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
   </header>
 );
 
-Header.propTypes = { user: PropTypes.shape({}),
+Header.propTypes = {
+  user: PropTypes.shape({}),
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
-  onCreateAccount: PropTypes.func.isRequired };
+  onCreateAccount: PropTypes.func.isRequired
+};
 
 Header.defaultProps = { user: null };
+
+export default Header;
