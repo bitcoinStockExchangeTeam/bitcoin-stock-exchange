@@ -25,20 +25,16 @@ const states = {
   BRIGHT: 'bright'
 };
 
-function isParagraph(type) {
-  return type.includes('paragraph');
-}
+export const isParagraph = (type) => type.includes('paragraph');
 
-function isHeading(type) {
-  return type.includes('heading');
-}
+export const isHeading = (type) => type.includes('heading');
 
-function getHeadingSize(type) {
+export const getHeadingSize = (type) => {
   if (!isHeading(type)) throw new Error('Type is not heading');
   return type.slice(-1);
-}
+};
 
-function selectTag(type) {
+export const selectTag = (type) => {
   if (isParagraph(type)) {
     return 'p';
   }
@@ -49,7 +45,7 @@ function selectTag(type) {
   }
 
   return type;
-}
+};
 
 const Text = ({ text, type, state, labelControl }) => {
   const classes = `${types[type]} ${types[type]}--${states[state]}`;
