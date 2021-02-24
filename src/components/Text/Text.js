@@ -51,40 +51,24 @@ function selectTag(type) {
   return type;
 }
 
-export default function Text({ text, type, state }) {
+const Text = ({ text, type, state, labelControl }) => {
   const classes = `${types[type]} ${types[type]}--${states[state]}`;
   const Tag = selectTag(types[type]);
 
   return (
-    <Tag className={classes}>
+    <Tag {...(Tag === 'label' ? { htmlFor: labelControl } : {})} className={classes}>
       {text}
     </Tag>
   );
-}
+};
 
 Text.propTypes = {
   text: PropTypes.string.isRequired,
-  type: PropTypes.oneOf([
-    'HEADING_1',
-    'HEADING_2',
-    'HEADING_3',
-    'HEADING_4',
-    'HEADING_5',
-    'HEADING_6',
-    'PARAGRAPH_1',
-    'PARAGRAPH_2',
-    'LABEL'
-  ]).isRequired,
-  state: PropTypes.oneOf([
-    'PRIMARY',
-    'SECONDARY',
-    'MUTED',
-    'ACCENT',
-    'WARNING',
-    'SUCCESS',
-    'ERROR',
-    'BRIGHT'
-  ])
+  type: PropTypes.oneOf(Object.keys(types)).isRequired,
+  state: PropTypes.oneOf(Object.keys(states)),
+  labelControl: PropTypes.string
 };
 
-Text.defaultProps = { state: 'PRIMARY' };
+Text.defaultProps = { state: 'PRIMARY', labelControl: '' };
+
+export default Text;
