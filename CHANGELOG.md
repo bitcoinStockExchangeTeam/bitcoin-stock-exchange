@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- ESlint no longer forbids props spreading [@nilphym](https://github.com/nilphym).
 - Web vitals [@nilphym](https://github.com/nilphym).
 
 ### Fixed
