@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Unified colors [@nilphym](https://github.com/nilphym).
 - Text component [@nilphym](https://github.com/nilphym).
 - IBM Plex Sans font [@nilphym](https://github.com/nilphym).
+- Enzyme with react adapter 17 [@nilphym](https://github.com/nilphym).
 
 ### Changed
 
@@ -25,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - ESlint no longer forbids props spreading [@nilphym](https://github.com/nilphym).
 - Web vitals [@nilphym](https://github.com/nilphym).
+- React testing library [@nilphym](https://github.com/nilphym).
 
 ### Fixed
 
