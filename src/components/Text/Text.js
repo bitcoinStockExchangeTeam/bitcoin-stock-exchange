@@ -25,12 +25,20 @@ const states = {
   BRIGHT: 'bright'
 };
 
-export const isParagraph = (type) => type.includes('paragraph');
+export const isParagraph = (type) => {
+  const supportedTypes = Object.values(types);
+  const supportedParagraphs = supportedTypes.filter((supportedType) => (/paragraph-\d+/).test(supportedType));
+  return supportedParagraphs.some((supportedParagraph) => supportedParagraph === type);
+};
 
-export const isHeading = (type) => type.includes('heading');
+export const isHeading = (type) => {
+  const supportedTypes = Object.values(types);
+  const supportedHeadings = supportedTypes.filter((supportedType) => (/heading-\d+/).test(supportedType));
+  return supportedHeadings.some((supportedHeading) => supportedHeading === type);
+};
 
 export const getHeadingSize = (type) => {
-  if (!isHeading(type)) throw new Error('Type is not heading');
+  if (!isHeading(type)) return '';
   return type.slice(-1);
 };
 
