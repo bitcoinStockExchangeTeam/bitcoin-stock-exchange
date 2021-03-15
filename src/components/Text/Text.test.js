@@ -1,177 +1,211 @@
 import React from 'react';
 import { shallow, render } from 'enzyme';
-import Text, { isParagraph, isHeading, getHeadingSize, selectTag } from './Text';
+import each from 'jest-each';
+import Text, { isSupported, getHeadingSize, selectTag } from './Text';
 
-describe('Checking if type is paragraph', () => {
-  it('for paragraph', () => {
-    expect(isParagraph('paragraph-1'))
-      .toBe(true);
-    expect(isParagraph('paragraph-2'))
-      .toBe(true);
+describe('isSupported function', () => {
+  describe('should valid correct paragraph', () => {
+    each([
+      ['paragraph-1'],
+      ['paragraph-2']
+    ]).it('given %p type', (type) => {
+      expect(isSupported(type, true))
+        .toBe(true);
+    });
   });
 
-  it('for not paragraph', () => {
-    expect(isParagraph('heading-1'))
-      .toBe(false);
-    expect(isParagraph('paragrap-1'))
-      .toBe(false);
+  describe('should not valid not paragraph', () => {
+    each([
+      ['heading-1'],
+      ['paragrap-1']
+    ]).it('given %p type', (type) => {
+      expect(isSupported(type, true))
+        .toBe(false);
+    });
   });
 
-  it('for wrong format paragraph', () => {
-    expect(isParagraph(' paragraph '))
-      .toBe(false);
-    expect(isParagraph(' paragraph-1'))
-      .toBe(false);
-    expect(isParagraph('paragraph-1 '))
-      .toBe(false);
-    expect(isParagraph('PARAGRAPH-2'))
-      .toBe(false);
+  describe('should not valid incorrect formatted paragraph', () => {
+    each([
+      [' paragraph '],
+      [' paragraph-1'],
+      ['paragraph-1 '],
+      ['PARAGRAPH-2']
+    ]).it('given %p type', (type) => {
+      expect(isSupported(type, true))
+        .toBe(false);
+    });
   });
 
-  it('for paragraph with wrong size', () => {
-    expect(isParagraph('paragraph-3'))
-      .toBe(false);
-    expect(isParagraph('paragraph-0'))
-      .toBe(false);
-  });
-});
-
-describe('Checking if type is heading', () => {
-  it('for heading', () => {
-    expect(isHeading('heading-1'))
-      .toBe(true);
-    expect(isHeading('heading-2'))
-      .toBe(true);
-    expect(isHeading('heading-6'))
-      .toBe(true);
+  describe('should not valid incorrect size paragraph', () => {
+    each([
+      ['paragraph-3'],
+      ['paragraph-0']
+    ]).it('given %p type', (type) => {
+      expect(isSupported(type, true))
+        .toBe(false);
+    });
   });
 
-  it('for not heading', () => {
-    expect(isHeading('paragraph-1'))
-      .toBe(false);
-    expect(isHeading('headin-1'))
-      .toBe(false);
+  describe('should valid correct heading', () => {
+    each([
+      ['heading-1'],
+      ['heading-2'],
+      ['heading-6']
+    ]).it('given %p type', (type) => {
+      expect(isSupported(type, false))
+        .toBe(true);
+    });
   });
 
-  it('for wrong format heading', () => {
-    expect(isHeading(' heading '))
-      .toBe(false);
-    expect(isHeading(' heading-1'))
-      .toBe(false);
-    expect(isHeading('heading-1 '))
-      .toBe(false);
-    expect(isHeading('HEADING-2'))
-      .toBe(false);
+  describe('should not valid not heading', () => {
+    each([
+      ['paragraph-1'],
+      ['headin-1']
+    ]).it('given %p type', (type) => {
+      expect(isSupported(type, false))
+        .toBe(false);
+    });
   });
 
-  it('for heading with wrong size', () => {
-    expect(isHeading('heading-7'))
-      .toBe(false);
-    expect(isHeading('heading-0'))
-      .toBe(false);
-  });
-});
-
-describe('Checking size of heading', () => {
-  it('for correct type', () => {
-    expect(getHeadingSize('heading-1'))
-      .toBe('1');
-    expect(getHeadingSize('heading-2'))
-      .toBe('2');
-    expect(getHeadingSize('heading-3'))
-      .toBe('3');
-    expect(getHeadingSize('heading-4'))
-      .toBe('4');
-    expect(getHeadingSize('heading-5'))
-      .toBe('5');
-    expect(getHeadingSize('heading-6'))
-      .toBe('6');
+  describe('should not valid incorrect formatted heading', () => {
+    each([
+      [' heading '],
+      [' heading-1'],
+      ['heading-1 '],
+      ['HEADING-2']
+    ]).it('given %p type', (type) => {
+      expect(isSupported(type, false))
+        .toBe(false);
+    });
   });
 
-  it('for incorrect type', () => {
-    expect(getHeadingSize('heading-7'))
-      .toBe('');
-    expect(getHeadingSize('hello-6'))
-      .toBe('');
-    expect(getHeadingSize('paragraph-1'))
-      .toBe('');
+  describe('should not valid incorrect size heading', () => {
+    each([
+      ['heading-7'],
+      ['heading-0']
+    ]).it('given %p type', (type) => {
+      expect(isSupported(type, false))
+        .toBe(false);
+    });
   });
 });
 
-describe('Selecting tag by type', () => {
-  it('for heading', () => {
-    expect(selectTag('heading-1'))
-      .toBe('h1');
-    expect(selectTag('heading-2'))
-      .toBe('h2');
-    expect(selectTag('heading-3'))
-      .toBe('h3');
-    expect(selectTag('heading-4'))
-      .toBe('h4');
-    expect(selectTag('heading-5'))
-      .toBe('h5');
-    expect(selectTag('heading-6'))
-      .toBe('h6');
+describe('getHeadingSize function', () => {
+  describe('should return correct heading size', () => {
+    each([
+      ['heading-1', '1'],
+      ['heading-2', '2'],
+      ['heading-3', '3'],
+      ['heading-4', '4'],
+      ['heading-5', '5'],
+      ['heading-6', '6']
+    ]).it('given %p type, expected %p size', (type, size) => {
+      expect(getHeadingSize(type))
+        .toBe(size);
+    });
+  });
+});
+
+describe('selectTag function', () => {
+  describe('should return correct html heading tag', () => {
+    each([
+      ['heading-1', 'h1'],
+      ['heading-2', 'h2'],
+      ['heading-3', 'h3'],
+      ['heading-4', 'h4'],
+      ['heading-5', 'h5'],
+      ['heading-6', 'h6']
+    ]).it('given %p type, expected %p tag', (type, tag) => {
+      expect(selectTag(type))
+        .toBe(tag);
+    });
   });
 
-  it('for paragraph', () => {
-    expect(selectTag('paragraph-1'))
-      .toBe('p');
-    expect(selectTag('paragraph-2'))
-      .toBe('p');
+  describe('should return correct html paragraph tag', () => {
+    each([
+      ['paragraph-1', 'p'],
+      ['paragraph-2', 'p']
+    ]).it('given %p type, expected %p tag', (type, tag) => {
+      expect(selectTag(type))
+        .toBe(tag);
+    });
   });
 
-  it('for label', () => {
+  describe('should return correct html label tag', () => {
     expect(selectTag('label'))
       .toBe('label');
   });
 
-  it('for not supported types', () => {
-    expect(selectTag('hello'))
-      .toBe('hello');
-    expect(selectTag('paragraph-6'))
-      .toBe('paragraph-6');
+  describe('should return incorrect type', () => {
+    each([
+      ['hello'],
+      ['paragraph-6']
+    ]).it('given %p type, expected %p tag', (type) => {
+      expect(selectTag(type))
+        .toBe(type);
+    });
   });
 });
 
-describe('Test component rendering', () => {
-  it('to render without throwing error', () => {
-    expect(shallow(<Text text="test" type="PARAGRAPH_1" />).contains(<p className="paragraph-1 paragraph-1--primary">test</p>)).toBe(true);
+describe('component render', () => {
+  const createTestComponent = (args, type = 'PARAGRAPH_1', text = 'test') => <Text {...{ text, type, ...args }} />;
+
+  it('should render component without errors', () => {
+    expect(shallow(createTestComponent()).contains(<p className="paragraph-1 paragraph-1--primary">test</p>)).toBe(true);
   });
 
-  it('to have correct classes', () => {
-    expect(shallow(<Text text="test" type="PARAGRAPH_1" />).is('.paragraph-1')).toBe(true);
-    expect(shallow(<Text text="test" type="PARAGRAPH_2" />).is('.paragraph-2')).toBe(true);
-    expect(shallow(<Text text="test" type="PARAGRAPH_1" />).is('.paragraph-1--primary')).toBe(true);
-    expect(shallow(<Text text="test" type="PARAGRAPH_1" state="WARNING" />).is('.paragraph-1--warning')).toBe(true);
-    expect(shallow(<Text text="test" type="HEADING_1" state="MUTED" />).is('.heading-1--muted')).toBe(true);
-    expect(shallow(<Text text="test" type="HEADING_6" state="BRIGHT" />).is('.heading-6--bright')).toBe(true);
-    expect(shallow(<Text text="test" type="LABEL" state="SUCCESS" />).is('.label')).toBe(true);
+  describe('should have correct classes', () => {
+    each([
+      [[{}], 'paragraph-1 paragraph-1--primary'],
+      [[{}, 'PARAGRAPH_2'], 'paragraph-2 paragraph-2--primary'],
+      [[{ state: 'WARNING' }], 'paragraph-1 paragraph-1--warning'],
+      [[{ state: 'MUTED' }, 'HEADING_1'], 'heading-1 heading-1--muted'],
+      [[{ state: 'BRIGHT' }, 'HEADING_6'], 'heading-6 heading-6--bright'],
+      [[{ state: 'SUCCESS' }, 'LABEL'], 'label label--success']
+    ]).it('given %p props, expected %p classes', (props, classes) => {
+      expect(shallow(createTestComponent(...props)).prop('className')).toBe(classes);
+    });
   });
 
-  it('to have correct tag', () => {
-    expect(shallow(<Text text="test" type="PARAGRAPH_1" state="WARNING" />).is('p')).toBe(true);
-    expect(shallow(<Text text="test" type="PARAGRAPH_2" />).is('p')).toBe(true);
-    expect(shallow(<Text text="test" type="HEADING_1" state="MUTED" />).is('h1')).toBe(true);
-    expect(shallow(<Text text="test" type="HEADING_6" state="BRIGHT" />).is('h6')).toBe(true);
-    expect(shallow(<Text text="test" type="LABEL" state="SUCCESS" />).is('label')).toBe(true);
+  describe('should have correct tag', () => {
+    each([
+      [[{}], 'p'],
+      [[{}, 'PARAGRAPH_2'], 'p'],
+      [[{}, 'HEADING_1'], 'h1'],
+      [[{}, 'HEADING_6'], 'h6'],
+      [[{}, 'LABEL'], 'label']
+    ]).it('given %p props, expected %p tag', (type, tag) => {
+      expect(shallow(createTestComponent(...type)).is(tag)).toBe(true);
+    });
   });
 
-  it('to have correct text', () => {
-    expect(render(<Text text="test " type="PARAGRAPH_1" />).text()).toEqual('test ');
-    expect(render(<Text text="hello" type="PARAGRAPH_2" />).text()).toBe('hello');
-    expect(render(<Text text="" type="PARAGRAPH_1" />).text()).toBe('');
-    expect(render(<Text text="kokokokokokoko" type="PARAGRAPH_1" state="WARNING" />).text()).toBe('kokokokokokoko');
-    expect(render(<Text text="    " type="HEADING_1" state="MUTED" />).text()).toBe('    ');
+  describe('should have correct text', () => {
+    each([
+      ['test '],
+      ['hello'],
+      [''],
+      ['kokokokokokoko'],
+      ['    ']
+    ]).it('given %p text', (text) => {
+      expect(render(createTestComponent({}, 'PARAGRAPH_1', text)).text()).toEqual(text);
+    });
   });
 
-  it('for label to have correct for attribute', () => {
-    expect(shallow(<Text text="test" type="LABEL" labelControl="test" />).is('[htmlFor="test"]')).toBe(true);
-    expect(shallow(<Text text="test" type="LABEL" />).is('[htmlFor=""]')).toBe(true);
+  describe('should have correct "for" attribute if is label', () => {
+    each([
+      [[{ labelControl: 'test' }, 'LABEL'], 'test'],
+      [[{}, 'LABEL'], '']
+    ]).it('given %p props, expected %p htmlFor value', (props, attributeValue) => {
+      expect(shallow(createTestComponent(...props)).prop('htmlFor')).toBe(attributeValue);
+    });
   });
 
-  it('for not label to do not have for attribute', () => {
-    expect(shallow(<Text text="test" type="PARAGRAPH_1" labelControl="test" />).is('[htmlFor="test"]')).toBe(false);
-    expect(shallow(<Text text="test" type="HEADING_4" />).is('[htmlFor=""]')).toBe(false);
+  describe('should not have "for" attribute if is not label', () => {
+    each([
+      [{ labelControl: 'test' }],
+      [{}, 'HEADING_4']
+    ]).it('given %p props', (props) => {
+      expect(shallow(createTestComponent(props)).prop('htmlFor')).toBe(undefined);
+    });
   });
 });
