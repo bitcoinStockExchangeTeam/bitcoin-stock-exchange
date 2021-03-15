@@ -25,29 +25,21 @@ const states = {
   BRIGHT: 'bright'
 };
 
-export const isParagraph = (type) => {
+export const isSupported = (type, shouldBeParagraph) => {
   const supportedTypes = Object.values(types);
-  const supportedParagraphs = supportedTypes.filter((supportedType) => (/paragraph-\d+/).test(supportedType));
-  return supportedParagraphs.some((supportedParagraph) => supportedParagraph === type);
+  const regex = shouldBeParagraph ? /paragraph-\d+/ : /heading-\d+/;
+  const filteredTypes = supportedTypes.filter((supportedType) => (regex).test(supportedType));
+  return filteredTypes.some((supportedType) => supportedType === type);
 };
 
-export const isHeading = (type) => {
-  const supportedTypes = Object.values(types);
-  const supportedHeadings = supportedTypes.filter((supportedType) => (/heading-\d+/).test(supportedType));
-  return supportedHeadings.some((supportedHeading) => supportedHeading === type);
-};
-
-export const getHeadingSize = (type) => {
-  if (!isHeading(type)) return '';
-  return type.slice(-1);
-};
+export const getHeadingSize = (type) => type.slice(-1);
 
 export const selectTag = (type) => {
-  if (isParagraph(type)) {
+  if (isSupported(type, true)) {
     return 'p';
   }
 
-  if (isHeading(type)) {
+  if (isSupported(type, false)) {
     const headerSize = getHeadingSize(type);
     return `h${headerSize}`;
   }
