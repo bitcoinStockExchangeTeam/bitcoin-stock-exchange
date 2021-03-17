@@ -48,7 +48,7 @@ export const selectTag = (type) => {
 };
 
 const Text = ({ text, type, state, labelControl }) => {
-  const classes = `${types[type]} ${types[type]}--${states[state]}`;
+  const classes = `text ${types[type]} ${states[state]}`;
   const Tag = selectTag(types[type]);
 
   return (

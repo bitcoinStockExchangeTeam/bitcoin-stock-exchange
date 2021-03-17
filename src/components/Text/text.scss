@@ -1,98 +1,83 @@
 @import '../../colors';
 
-.heading-1,
-.heading-2,
-.heading-3,
-.heading-4,
-.heading-5,
-.heading-6,
-.paragraph-1,
-.paragraph-2,
-.label {
+.text {
   font-family: 'IBM Plex Sans', sans-serif;
   font-style: normal;
+  font-weight: 600;
   margin: 0;
 
-  &--primary {
+  &.heading {
+    &-1 {
+      font-size: 72px;
+    }
+
+    &-2 {
+      font-size: 64px;
+    }
+
+    &-3 {
+      font-size: 56px;
+    }
+
+    &-4 {
+      font-size: 34px;
+    }
+
+    &-5 {
+      font-size: 28px;
+    }
+
+    &-6 {
+      font-size: 20px;
+    }
+  }
+
+  &.paragraph {
+    &-1 {
+      font-weight: 400;
+      font-size: 16px;
+    }
+
+    &-2 {
+      font-weight: 400;
+      font-size: 14px;
+    }
+  }
+
+  &.label {
+    font-weight: 400;
+    font-size: 12px;
+  }
+
+  &.primary {
     color: $primary;
   }
 
-  &--secondary {
+  &.secondary {
     color: $secondary;
   }
 
-  &--muted {
+  &.muted {
     color: $muted;
   }
 
-  &--accent {
+  &.accent {
     color: $accent;
   }
 
-  &--warning {
+  &.warning {
     color: $warning;
   }
 
-  &--success {
+  &.success {
     color: $success;
   }
 
-  &--error {
+  &.error {
     color: $error;
   }
 
-  &--bright {
+  &.bright {
     color: $bright;
   }
-}
-
-.heading-1,
-.heading-2,
-.heading-3,
-.heading-4,
-.heading-5,
-.heading-6 {
-  font-weight: 600;
-}
-
-.paragraph-1,
-.paragraph-2,
-.label {
-  font-weight: 400;
-}
-
-.heading-1 {
-  font-size: 72px;
-}
-
-.heading-2 {
-  font-size: 64px;
-}
-
-.heading-3 {
-  font-size: 56px;
-}
-
-.heading-4 {
-  font-size: 34px;
-}
-
-.heading-5 {
-  font-size: 28px;
-}
-
-.heading-6 {
-  font-size: 20px;
-}
-
-.paragraph-1 {
-  font-size: 16px;
-}
-
-.paragraph-2 {
-  font-size: 14px;
-}
-
-.label {
-  font-size: 12px;
 }
