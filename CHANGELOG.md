@@ -8,25 +8,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Redux with dev tools configuration.
-- Redux-thunk middleware.
-- React-router connected with Redux.
+
+- Redux with dev tools configuration [@nilphym](https://github.com/nilphym).
+- Redux-thunk middleware [@nilphym](https://github.com/nilphym).
+- React-router connected with Redux [@nilphym](https://github.com/nilphym).
+- Proptypes [@nilphym](https://github.com/nilphym).
+- Unified colors [@nilphym](https://github.com/nilphym).
+- Text component [@nilphym](https://github.com/nilphym).
+- IBM Plex Sans font [@nilphym](https://github.com/nilphym).
+- Enzyme with [react adapter 17](https://github.com/enzymejs/enzyme/issues/2429) [@nilphym](https://github.com/nilphym).
 
 ### Changed
-- ESLint expects line break for multiple elements in brackets.
+
+- ESLint expects line break for multiple elements in brackets [@nilphym](https://github.com/nilphym).
+
+### Removed
+
+- ESlint no longer forbids props spreading [@nilphym](https://github.com/nilphym).
+- Web vitals [@nilphym](https://github.com/nilphym).
+- React testing library [@nilphym](https://github.com/nilphym).
+
+### Fixed
+
+- Stylelint no longer requires `foo` at the beginning of sass variables [@nilphym](https://github.com/nilphym).
 
 ## [1.0.0] - 2021-02-03
 
 ### Added
 
-- Storybook.
-- Github actions CI.
-- Sass preprocessor integration.
-- React router.
-- Eslint.
-- Stylelint.
-- Integration with Husky.
-- Yarn 2.
+- Storybook [@rezik007](https://github.com/rezik007).
+- Github actions CI [@rezik007](https://github.com/rezik007).
+- Sass preprocessor integration [@nilphym](https://github.com/nilphym).
+- React router [@nilphym](https://github.com/nilphym).
+- Eslint. [@MWOsiadly](https://github.com/MWOsiadly).
+- Stylelint. [@MWOsiadly](https://github.com/MWOsiadly).
+- Integration with Husky. [@MWOsiadly](https://github.com/MWOsiadly).
+- Yarn 2 [@nilphym](https://github.com/nilphym).
 - CHANGELOG file [@rezik007](https://github.com/rezik007).
 
 [unreleased]: https://github.com/Mrozelek/bitcoin-stock-exchange/compare/v1.0.0...HEAD
