@@ -1,10 +1,14 @@
 import React from 'react';
-import './App.scss';
-import Wrapper from './containers/Wrapper';
+import SiteHeading from './containers/SiteHeading';
+import MarketPage from './containers/MarketPage';
+import { wrapper } from './App.module.scss';
 
 function App() {
   return (
-    <Wrapper />
+    <div className={wrapper}>
+      <SiteHeading />
+      <MarketPage />
+    </div>
   );
 }
 

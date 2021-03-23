@@ -7,7 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-function createData(id, price, name, change, cap) {
+function createData(id, name, price, change, cap) {
   return { id, name, price, change, cap };
 }
 

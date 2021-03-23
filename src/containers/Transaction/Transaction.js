@@ -1,31 +1,17 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
-const useStyles = makeStyles(() => ({
-  wrapper: {
-    padding: '2em',
-    margin: 'auto 0',
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between'
-  }
-}));
+import Button from '@material-ui/core/Button';
+import { wrapper, heading, form, buttonContainer } from './transaction.module.scss';
+import Text from '../../components/Text';
 
 export default function Switches() {
   const [checked, setChecked] = React.useState(true);
   const [currency, setCurrency] = React.useState('');
-
-  const classes = useStyles();
 
   const handleCheckedChange = () => {
     setChecked(!checked);
@@ -36,12 +22,10 @@ export default function Switches() {
   };
 
   return (
-    <div className={classes.wrapper}>
-      <div>
-        <p>
-          <span>Transaction Type: </span>
-          <span>{checked ? 'Buy' : 'Sell'}</span>
-        </p>
+    <div className={wrapper}>
+      <div className={heading}>
+        <Text text="Transaction Type:" type="HEADING_5" />
+        <Text text={checked ? 'Buy' : 'Sell'} type="HEADING_5" state={checked ? 'SUCCESS' : 'ACCENT'} />
         <Switch
           checked={checked}
           onChange={handleCheckedChange}
@@ -50,7 +34,7 @@ export default function Switches() {
           inputProps={{ 'aria-label': 'primary checkbox' }}
         />
       </div>
-      <div className={classes.form}>
+      <div className={form}>
         <FormControl variant="outlined">
           <InputLabel id="currencies">Name</InputLabel>
           <Select
@@ -67,20 +51,28 @@ export default function Switches() {
           </Select>
         </FormControl>
         <TextField
-          id="outlined-helperText"
+          id="price"
           label="Price"
           variant="outlined"
         />
         <TextField
-          id="outlined-helperText"
+          id="amount"
           label="Amount"
           variant="outlined"
         />
         <TextField
-          id="outlined-helperText"
+          id="total"
           label="Total"
           variant="outlined"
         />
+      </div>
+      <div className={buttonContainer}>
+        <Button variant="contained" color="primary">
+          Confirm
+        </Button>
+        <Button variant="outlined" color="primary">
+          Reset
+        </Button>
       </div>
     </div>
   );

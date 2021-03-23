@@ -1,0 +1,26 @@
+.wrapper {
+  height: 100%;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  gap: 2em;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.buttonContainer {
+  margin-left: auto;
+
+  button + button {
+    margin-left: 1em;
+  }
+}
