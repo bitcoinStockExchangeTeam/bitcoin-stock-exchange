@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import counterReducer from './counter';
-import loggedReducer from './isLogged';
+import currencyReducer from './currency';
 
 const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
-  counterReducer,
-  loggedReducer
+  currencyReducer
 });
 
 export default createRootReducer;
