@@ -12,14 +12,14 @@ import useStockExchangeData from '../../hooks/useStockExchangeData';
 
 const Transaction = () => {
   const [checked, setType] = useState(true);
-  const [amount, setAmount] = useState('');
+  const [currency, setCurrency] = useState('');
   const [price, setPrice] = useState('');
+  const [amount, setAmount] = useState('');
   const [total, setTotal] = useState('');
 
   const [amountProps, setAmountProps] = useState({ error: false, helperText: '' });
   const [currenciesProps, setCurrenciesProps] = useState({ error: false });
 
-  const [currency, setCurrency] = useState('');
   const [currencies, setCurrencies] = useState([]);
   const stockExchangeData = useStockExchangeData();
 
@@ -58,6 +58,19 @@ const Transaction = () => {
     if (currency === '') {
       setCurrenciesProps({ error: true });
     }
+    if (amount === '') {
+      setAmountProps({ error: true, helperText: 'Input must be an integer number.' });
+    }
+  };
+
+  const resetForm = () => {
+    setType(true);
+    setCurrency('');
+    setPrice('');
+    setAmount('');
+    setTotal('');
+    setAmountProps({ error: false, helperText: '' });
+    setCurrenciesProps({ error: false });
   };
 
   useEffect(() => {
@@ -104,6 +117,7 @@ const Transaction = () => {
           label="Amount"
           variant="outlined"
           onChange={handleAmountChange}
+          value={amount}
           {...amountProps}
         />
         <TextField
@@ -118,7 +132,7 @@ const Transaction = () => {
         <Button variant="contained" color="primary" onClick={handleConfirmButton}>
           Confirm
         </Button>
-        <Button variant="outlined" color="primary">
+        <Button variant="outlined" color="primary" onClick={resetForm}>
           Reset
         </Button>
       </div>
