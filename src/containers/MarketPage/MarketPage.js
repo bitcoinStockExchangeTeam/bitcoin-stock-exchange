@@ -1,6 +1,6 @@
 import React from 'react';
 import Transaction from '../Transaction';
-import Table from '../CurrencyTable';
+import Table from '../../components/CurrencyTable';
 import { wrapper, table, transaction } from './marketPage.module.scss';
 
 const MarketPage = () => (

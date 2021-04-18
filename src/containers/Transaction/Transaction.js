@@ -8,14 +8,18 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { wrapper, heading, form, buttonContainer } from './transaction.module.scss';
 import Text from '../../components/Text';
+import useStockExchangeData from '../../hooks/useStockExchangeData';
 
 const Transaction = () => {
   const [checked, setType] = useState(true);
   const [amount, setAmount] = useState('');
+
   const [amountProps, setAmountProps] = useState({ error: false, helperText: '' });
   const [currenciesProps, setCurrenciesProps] = useState({ error: false });
+
   const [currency, setCurrency] = useState('');
   const [currencies, setCurrencies] = useState([]);
+  const stockExchangeData = useStockExchangeData();
 
   const handleTypeChange = () => {
     setType((checkedPrev) => !checkedPrev);
@@ -49,7 +53,7 @@ const Transaction = () => {
   };
 
   useEffect(() => {
-    setCurrencies(['BTC', 'ETH', 'USDT', 'BNB']);
+    setCurrencies(stockExchangeData.map((dataItem) => dataItem.name));
   }, []);
 
   return (

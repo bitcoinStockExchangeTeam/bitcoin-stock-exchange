@@ -11,6 +11,7 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-props-no-spreading": "off",
     "import/no-extraneous-dependencies": "off",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-plusplus": "off"
   }
 }
