@@ -13,6 +13,8 @@ import useStockExchangeData from '../../hooks/useStockExchangeData';
 const Transaction = () => {
   const [checked, setType] = useState(true);
   const [amount, setAmount] = useState('');
+  const [price, setPrice] = useState('');
+  const [total, setTotal] = useState('');
 
   const [amountProps, setAmountProps] = useState({ error: false, helperText: '' });
   const [currenciesProps, setCurrenciesProps] = useState({ error: false });
@@ -26,24 +28,30 @@ const Transaction = () => {
   };
 
   const handleCurrencyChange = (event) => {
-    if (event.target.value === '') {
-      setCurrenciesProps({ error: true });
-    } else {
-      setCurrenciesProps({ error: false });
-    }
+    setCurrenciesProps({ error: false });
     setCurrency(event.target.value);
+    const currPrice = stockExchangeData.find(
+      (dataItem) => dataItem.name === event.target.value
+    ).price;
+    setPrice(currPrice);
+    if (amount !== '') {
+      setTotal(amount * currPrice);
+    }
   };
 
   const handleAmountChange = (event) => {
-    const regexDecimal = /^\d+\.\d{0,2}$/;
     const regexInt = /^\d+$/;
 
-    if (regexDecimal.test(event.target.value) || regexInt.test(event.target.value)) {
+    if (regexInt.test(event.target.value)) {
       setAmountProps({ error: false, helperText: '' });
+      setAmount(event.target.value);
+      if (price !== '') {
+        setTotal(event.target.value * price);
+      }
     } else {
-      setAmountProps({ error: true, helperText: 'Input must be a number.' });
+      setAmountProps({ error: true, helperText: 'Input must be an integer number.' });
+      setAmount('');
     }
-    setAmount(event.target.value);
   };
 
   const handleConfirmButton = () => {
@@ -88,6 +96,7 @@ const Transaction = () => {
           id="price"
           label="Price"
           variant="outlined"
+          value={price}
           disabled
         />
         <TextField
@@ -101,6 +110,7 @@ const Transaction = () => {
           id="total"
           label="Total"
           variant="outlined"
+          value={total}
           disabled
         />
       </div>
