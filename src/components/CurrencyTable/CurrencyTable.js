@@ -1,11 +1,5 @@
 import React from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import * as Component from '@material-ui/core';
 import useStockExchangeData from '../../hooks/useStockExchangeData';
 import colors from '../../colors';
 
@@ -53,34 +47,36 @@ const formatStockExchangeData = (stockExchangeData) => (
 );
 
 const CurrencyTable = () => {
-  const stockExchangeData = useStockExchangeData();
-  const stockExchangeDataFormatted = formatStockExchangeData(stockExchangeData);
+  const stockExchangeDataFormatted = formatStockExchangeData(useStockExchangeData());
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Current Price</TableCell>
-            <TableCell align="right">24h Change</TableCell>
-            <TableCell align="right">Market Cap</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+    <Component.TableContainer component={Component.Paper}>
+      <Component.Table aria-label="simple table">
+        <Component.TableHead>
+          <Component.TableRow>
+            <Component.TableCell>Name</Component.TableCell>
+            <Component.TableCell align="right">Current Price</Component.TableCell>
+            <Component.TableCell align="right">24h Change</Component.TableCell>
+            <Component.TableCell align="right">Market Cap</Component.TableCell>
+          </Component.TableRow>
+        </Component.TableHead>
+        <Component.TableBody>
           {stockExchangeDataFormatted.map((dataItem) => (
-            <TableRow key={dataItem.name}>
-              <TableCell component="th" scope="row">{dataItem.name}</TableCell>
-              <TableCell align="right">{dataItem.price}</TableCell>
-              <TableCell style={dataItem.change[0] === '+' ? { color: colors.success } : { color: colors.error }} align="right">
+            <Component.TableRow key={dataItem.uuid}>
+              <Component.TableCell component="th" scope="row">{dataItem.name}</Component.TableCell>
+              <Component.TableCell align="right">{dataItem.price}</Component.TableCell>
+              <Component.TableCell
+                style={dataItem.change[0] === '+' ? { color: colors.success } : { color: colors.error }}
+                align="right"
+              >
                 {dataItem.change}
-              </TableCell>
-              <TableCell align="right">{dataItem.cap}</TableCell>
-            </TableRow>
+              </Component.TableCell>
+              <Component.TableCell align="right">{dataItem.cap}</Component.TableCell>
+            </Component.TableRow>
           ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        </Component.TableBody>
+      </Component.Table>
+    </Component.TableContainer>
   );
 };
 

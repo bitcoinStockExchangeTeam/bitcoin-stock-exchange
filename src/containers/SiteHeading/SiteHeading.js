@@ -1,18 +1,18 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import * as Component from '@material-ui/core';
 import Text from '../../components/Text';
-import { wrapper, buttonContainer } from './siteHeading.module.scss';
+import styles from './siteHeading.module.scss';
 
 const SiteHeading = () => (
-  <div className={wrapper}>
+  <div className={styles.wrapper}>
     <Text text="Cryptocurrency stock exchange" type="HEADING_3" state="ACCENT" />
-    <div className={buttonContainer}>
-      <Button variant="outlined" color="primary">
+    <div className={styles.buttonContainer}>
+      <Component.Button variant="outlined" color="primary">
         Log in
-      </Button>
-      <Button variant="contained" color="primary">
+      </Component.Button>
+      <Component.Button variant="contained" color="primary">
         Register
-      </Button>
+      </Component.Button>
     </div>
   </div>
 );
