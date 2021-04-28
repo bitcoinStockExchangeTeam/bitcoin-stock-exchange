@@ -1,142 +1,119 @@
-import React, { useState, useEffect } from 'react';
-import Switch from '@material-ui/core/Switch';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
-import { wrapper, heading, form, buttonContainer } from './transaction.module.scss';
+import React from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import * as Component from '@material-ui/core';
+import styles from './transaction.module.scss';
 import Text from '../../components/Text';
 import useStockExchangeData from '../../hooks/useStockExchangeData';
 
+const defaultValues = {
+  transactionType: true,
+  price: '',
+  amount: '',
+  total: '',
+  currencies: ''
+};
+
 const Transaction = () => {
-  const [checked, setType] = useState(true);
-  const [currency, setCurrency] = useState('');
-  const [price, setPrice] = useState('');
-  const [amount, setAmount] = useState('');
-  const [total, setTotal] = useState('');
+  const { reset, control, handleSubmit, watch } = useForm({ defaultValues });
+  const currencyNames = useStockExchangeData().map((dataItem) => dataItem.name);
 
-  const [amountProps, setAmountProps] = useState({ error: false, helperText: '' });
-  const [currenciesProps, setCurrenciesProps] = useState({ error: false });
-
-  const [currencies, setCurrencies] = useState([]);
-  const stockExchangeData = useStockExchangeData();
-
-  const handleTypeChange = () => {
-    setType((checkedPrev) => !checkedPrev);
+  const onSubmit = (data) => {
+    console.log(data);
   };
 
-  const handleCurrencyChange = (event) => {
-    setCurrenciesProps({ error: false });
-    setCurrency(event.target.value);
-    const currPrice = stockExchangeData.find(
-      (dataItem) => dataItem.name === event.target.value
-    ).price;
-    setPrice(currPrice);
-    if (amount !== '') {
-      setTotal(amount * currPrice);
-    }
-  };
-
-  const handleAmountChange = (event) => {
-    const regexInt = /^\d+$/;
-
-    if (regexInt.test(event.target.value)) {
-      setAmountProps({ error: false, helperText: '' });
-      setAmount(event.target.value);
-      if (price !== '') {
-        setTotal(event.target.value * price);
-      }
-    } else {
-      setAmountProps({ error: true, helperText: 'Input must be an integer number.' });
-      setAmount('');
-    }
-  };
-
-  const handleConfirmButton = () => {
-    if (currency === '') {
-      setCurrenciesProps({ error: true });
-    }
-    if (amount === '') {
-      setAmountProps({ error: true, helperText: 'Input must be an integer number.' });
-    }
-  };
-
-  const resetForm = () => {
-    setType(true);
-    setCurrency('');
-    setPrice('');
-    setAmount('');
-    setTotal('');
-    setAmountProps({ error: false, helperText: '' });
-    setCurrenciesProps({ error: false });
-  };
-
-  useEffect(() => {
-    setCurrencies(stockExchangeData.map((dataItem) => dataItem.name));
-  }, []);
+  const transactionType = watch('transactionType');
 
   return (
-    <div className={wrapper}>
-      <div className={heading}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
+      <div className={styles.heading}>
         <Text text="Transaction Type:" type="HEADING_5" />
-        <Text text={checked ? 'Buy' : 'Sell'} type="HEADING_5" state={checked ? 'SUCCESS' : 'ACCENT'} />
-        <Switch
-          checked={checked}
-          onChange={handleTypeChange}
-          color="primary"
+        <Text text={transactionType ? 'Buy' : 'Sell'} type="HEADING_5" state={transactionType ? 'SUCCESS' : 'ACCENT'} />
+        <Controller
           name="transactionType"
-          inputProps={{ 'aria-label': 'primary checkbox' }}
+          control={control}
+          render={({ field }) => (
+            <Component.Switch
+              color="primary"
+              checked={field.value}
+              inputProps={{ 'aria-label': 'primary checkbox' }}
+              {...field}
+            />
+          )}
         />
       </div>
-      <div className={form}>
-        <FormControl variant="outlined">
-          <InputLabel id="currencies">Name</InputLabel>
-          <Select
-            labelId="currencies"
-            id="currencies"
-            value={currency}
-            onChange={handleCurrencyChange}
-            label="Name"
-            {...currenciesProps}
-          >
-            {currencies.map((currencyItem) => (
-              <MenuItem key={currencyItem} value={currencyItem}>{currencyItem}</MenuItem>))}
-          </Select>
-        </FormControl>
-        <TextField
-          id="price"
-          label="Price"
-          variant="outlined"
-          value={price}
-          disabled
+      <div className={styles.form}>
+        <Component.FormControl variant="outlined">
+          <Component.InputLabel id="currencies">Name</Component.InputLabel>
+          <Controller
+            name="currencies"
+            control={control}
+            render={({ field }) => (
+              <Component.Select
+                labelId="currencies"
+                id="currencies"
+                label="Name"
+                {...field}
+              >
+                {currencyNames.map((currencyItem) => (
+                  <Component.MenuItem key={currencyItem} value={currencyItem}>
+                    {currencyItem}
+                  </Component.MenuItem>
+                ))}
+              </Component.Select>
+            )}
+          />
+        </Component.FormControl>
+        <Controller
+          name="price"
+          control={control}
+          render={({ field }) => (
+            <Component.TextField
+              id="price"
+              label="Price"
+              variant="outlined"
+              // value={price}
+              disabled
+              {...field}
+            />
+          )}
         />
-        <TextField
-          id="amount"
-          label="Amount"
-          variant="outlined"
-          onChange={handleAmountChange}
-          value={amount}
-          {...amountProps}
+        <Controller
+          name="amount"
+          control={control}
+          render={({ field }) => (
+            <Component.TextField
+              id="amount"
+              label="Amount"
+              variant="outlined"
+              // value={amount}
+              {...field}
+            />
+          )}
         />
-        <TextField
-          id="total"
-          label="Total"
-          variant="outlined"
-          value={total}
-          disabled
+        <Controller
+          name="total"
+          control={control}
+          render={({ field }) => (
+            <Component.TextField
+              id="total"
+              label="Total"
+              variant="outlined"
+              // value={total}
+              disabled
+              {...field}
+            />
+          )}
         />
       </div>
-      <div className={buttonContainer}>
-        <Button variant="contained" color="primary" onClick={handleConfirmButton}>
+      <div className={styles.buttonContainer}>
+        <Component.Button type="submit" variant="contained" color="primary">
           Confirm
-        </Button>
-        <Button variant="outlined" color="primary" onClick={resetForm}>
+        </Component.Button>
+        <Component.Button variant="outlined" color="primary" onClick={() => reset(defaultValues)}>
           Reset
-        </Button>
+        </Component.Button>
       </div>
-    </div>
+    </form>
   );
 };
 
