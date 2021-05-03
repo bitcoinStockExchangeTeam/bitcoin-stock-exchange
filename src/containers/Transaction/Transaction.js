@@ -1,35 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useForm, Controller } from 'react-hook-form';
 import * as Component from '@material-ui/core';
 import styles from './transaction.module.scss';
 import Text from '../../components/Text';
-import useStockExchangeData from '../../hooks/useStockExchangeData';
 
 const defaultValues = {
-  transactionType: true,
+  isBuying: true,
+  currencyName: '',
   price: '',
   amount: '',
-  total: '',
-  currencies: ''
+  total: ''
 };
 
-const Transaction = () => {
-  const { reset, control, handleSubmit, watch } = useForm({ defaultValues });
-  const currencyNames = useStockExchangeData().map((dataItem) => dataItem.name);
+const Transaction = ({ stockExchangeData }) => {
+  const { reset, control, handleSubmit, watch, setValue, getValues } = useForm({ defaultValues });
+  const [isBuying, currencyName, amount] = [watch('isBuying'), watch('currencyName'), watch('amount')];
 
   const onSubmit = (data) => {
+    // eslint-disable-next-line no-console
     console.log(data);
   };
 
-  const transactionType = watch('transactionType');
+  useEffect(() => {
+    setValue('price', stockExchangeData.find((dataItem) => dataItem.name === currencyName)?.price || '');
+  }, [currencyName, setValue, stockExchangeData]);
+
+  useEffect(() => {
+    if (amount && currencyName) {
+      setValue('total', stockExchangeData.find((dataItem) => dataItem.name === currencyName).price * getValues('amount'));
+    }
+  }, [amount, currencyName, getValues, setValue, stockExchangeData]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
       <div className={styles.heading}>
         <Text text="Transaction Type:" type="HEADING_5" />
-        <Text text={transactionType ? 'Buy' : 'Sell'} type="HEADING_5" state={transactionType ? 'SUCCESS' : 'ACCENT'} />
+        <Text text={isBuying ? 'Buy' : 'Sell'} type="HEADING_5" state={isBuying ? 'SUCCESS' : 'ACCENT'} />
         <Controller
-          name="transactionType"
+          name="isBuying"
           control={control}
           render={({ field }) => (
             <Component.Switch
@@ -43,20 +52,20 @@ const Transaction = () => {
       </div>
       <div className={styles.form}>
         <Component.FormControl variant="outlined">
-          <Component.InputLabel id="currencies">Name</Component.InputLabel>
+          <Component.InputLabel id="currencyName">Name</Component.InputLabel>
           <Controller
-            name="currencies"
+            name="currencyName"
             control={control}
             render={({ field }) => (
               <Component.Select
-                labelId="currencies"
-                id="currencies"
-                label="Name"
+                labelId="currencyName"
+                id="currencyName"
+                label="currencyName"
                 {...field}
               >
-                {currencyNames.map((currencyItem) => (
-                  <Component.MenuItem key={currencyItem} value={currencyItem}>
-                    {currencyItem}
+                {stockExchangeData.map((dataItem) => (
+                  <Component.MenuItem key={dataItem.uuid} value={dataItem.name}>
+                    {dataItem.name}
                   </Component.MenuItem>
                 ))}
               </Component.Select>
@@ -71,7 +80,6 @@ const Transaction = () => {
               id="price"
               label="Price"
               variant="outlined"
-              // value={price}
               disabled
               {...field}
             />
@@ -85,7 +93,6 @@ const Transaction = () => {
               id="amount"
               label="Amount"
               variant="outlined"
-              // value={amount}
               {...field}
             />
           )}
@@ -98,7 +105,6 @@ const Transaction = () => {
               id="total"
               label="Total"
               variant="outlined"
-              // value={total}
               disabled
               {...field}
             />
@@ -118,3 +124,12 @@ const Transaction = () => {
 };
 
 export default Transaction;
+
+Transaction.propTypes = {
+  stockExchangeData: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    price: PropTypes.number,
+    change: PropTypes.number,
+    cap: PropTypes.number
+  })).isRequired
+};
