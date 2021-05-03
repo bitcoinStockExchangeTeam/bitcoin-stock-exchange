@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useForm, Controller } from 'react-hook-form';
 import * as Component from '@material-ui/core';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import styles from './transaction.module.scss';
 import Text from '../../components/Text';
 
@@ -13,8 +15,30 @@ const defaultValues = {
   total: ''
 };
 
+const schema = yup.object().shape({
+  currencyName: yup.string().required(),
+  amount: yup.number().positive().integer().required()
+});
+
+const errorMessages = {
+  required: 'The field is required',
+  typeError: 'Value must be a number',
+  integer: 'Value must be an integer'
+};
+
 const Transaction = ({ stockExchangeData }) => {
-  const { reset, control, handleSubmit, watch, setValue, getValues } = useForm({ defaultValues });
+  const {
+    reset,
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    getValues,
+    formState: { errors }
+  } = useForm({
+    defaultValues,
+    resolver: yupResolver(schema)
+  });
   const [isBuying, currencyName, amount] = [watch('isBuying'), watch('currencyName'), watch('amount')];
 
   const onSubmit = (data) => {
@@ -27,10 +51,11 @@ const Transaction = ({ stockExchangeData }) => {
   }, [currencyName, setValue, stockExchangeData]);
 
   useEffect(() => {
-    if (amount && currencyName) {
-      setValue('total', stockExchangeData.find((dataItem) => dataItem.name === currencyName).price * getValues('amount'));
+    if (amount && currencyName && !errors.amount) {
+      const total = stockExchangeData.find((dataItem) => dataItem.name === currencyName).price * getValues('amount');
+      setValue('total', total.toFixed(2));
     }
-  }, [amount, currencyName, getValues, setValue, stockExchangeData]);
+  }, [amount, currencyName, errors.amount, getValues, setValue, stockExchangeData]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
@@ -51,7 +76,7 @@ const Transaction = ({ stockExchangeData }) => {
         />
       </div>
       <div className={styles.form}>
-        <Component.FormControl variant="outlined">
+        <Component.FormControl variant="outlined" error={!!errors.currencyName}>
           <Component.InputLabel id="currencyName">Name</Component.InputLabel>
           <Controller
             name="currencyName"
@@ -71,6 +96,9 @@ const Transaction = ({ stockExchangeData }) => {
               </Component.Select>
             )}
           />
+          <Component.FormHelperText>
+            {errorMessages[errors.currencyName?.type]}
+          </Component.FormHelperText>
         </Component.FormControl>
         <Controller
           name="price"
@@ -93,6 +121,8 @@ const Transaction = ({ stockExchangeData }) => {
               id="amount"
               label="Amount"
               variant="outlined"
+              error={!!errors.amount}
+              helperText={errorMessages[errors.amount?.type]}
               {...field}
             />
           )}

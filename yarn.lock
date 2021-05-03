@@ -1856,6 +1856,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.10.5":
+  version: 7.14.0
+  resolution: "@babel/runtime@npm:7.14.0"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: ab6653f2f8ecdaebf36674894cef458a9d4f881dc007fdcd50a8261f5c6d9731e03fda2c17e32ecf0e6c779d69eb6cf49d68a48c780aaf07d5b572e8b7ef0508
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:^7.4.4, @babel/runtime@npm:^7.8.3, @babel/runtime@npm:^7.8.7":
   version: 7.13.10
   resolution: "@babel/runtime@npm:7.13.10"
@@ -2185,6 +2194,15 @@ __metadata:
   dependencies:
     "@hapi/hoek": ^8.3.0
   checksum: 4550d3d7498a203ce5c0e53753eb9f510aa2b74c08bfaf7d7c4676a0943b27d72f22297ff006e8396eb74e6b73154ebf98feab19c199b0768a084a777d024a50
+  languageName: node
+  linkType: hard
+
+"@hookform/resolvers@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "@hookform/resolvers@npm:2.4.0"
+  peerDependencies:
+    react-hook-form: ^7.0.0
+  checksum: 0a18e36e89b20c288dd07b178ade6519563a200c023408f78d6ab1b1d57ce0006ce3c45543450772b9892d6c976501479b2c74cfa2bffda77d25385d56eb169e
   languageName: node
   linkType: hard
 
@@ -3937,6 +3955,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: 66e9ac0143ec521522c7bb670301e9836ee886207eeed1aab6d4854a1b19b404ab3a54cd8d449f9b1f13acc357f540be96f8ac2d1e86e301eab52ae0f9a4066f
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4.14.165":
+  version: 4.14.168
+  resolution: "@types/lodash@npm:4.14.168"
+  checksum: 9a4e25f89fc035b9f0388f1f7be85e5eff49f9e6db0d93432c9a89fce0916f8a89db4e8290415f7ea02de6b00d3573826378dcb655b7b2d20530a6e8d6dd6fd0
   languageName: node
   linkType: hard
 
@@ -5997,6 +6022,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bitcoin-stock-exchange@workspace:."
   dependencies:
+    "@hookform/resolvers": ^2.4.0
     "@material-ui/core": ^4.11.3
     "@material-ui/icons": ^4.11.2
     "@mdx-js/react": ^1.6.22
@@ -6040,6 +6066,7 @@ __metadata:
     stylelint: ^13.7.2
     stylelint-scss: ^3.18.0
     uuid: ^8.3.2
+    yup: ^0.32.9
   languageName: unknown
   linkType: soft
 
@@ -14737,6 +14764,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"nanoclone@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "nanoclone@npm:0.2.1"
+  checksum: f624fe519818ac2ab9fc2322d0bd8b54def4c0080123e7e4fa4a8d5fa331862e057a5c8fa1923cce6445d011a66718454750058a16c3a68b1912058288cd71a2
+  languageName: node
+  linkType: hard
+
 "nanoid@npm:^3.1.18":
   version: 3.1.18
   resolution: "nanoid@npm:3.1.18"
@@ -17186,6 +17220,13 @@ fsevents@~2.1.2:
     object-assign: ^4.1.1
     react-is: ^16.8.1
   checksum: a440dd406c5cf53bf39f3e898d2c65178511d34ca3c8c789b30c177992408b9e4273969726b274719aa69ccce5ab34b2fd8caa60b90f23cd2e910cdcf682de52
+  languageName: node
+  linkType: hard
+
+"property-expr@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "property-expr@npm:2.0.4"
+  checksum: fffa6ba8a21cbbf694652755fe2cf4d68bfb8c625f2de6424910edf2c7d50a3f4e7e5ac749b8fe42261cb63d12148d7612f207397d244151e2d7fb853ce7bf5b
   languageName: node
   linkType: hard
 
@@ -20641,6 +20682,13 @@ resolve@1.18.1:
   languageName: node
   linkType: hard
 
+"toposort@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "toposort@npm:2.0.2"
+  checksum: 9e70bf92de5e65e77e89065f34b642a9ae75be5cf4896152b5a131ca66c77c4d9edf056942e988e29b534a83643f38860e148aa939cd3c489d00abbf5639f54f
+  languageName: node
+  linkType: hard
+
 "tough-cookie@npm:^2.3.3, tough-cookie@npm:~2.5.0":
   version: 2.5.0
   resolution: "tough-cookie@npm:2.5.0"
@@ -22267,6 +22315,21 @@ resolve@1.18.1:
     y18n: ^4.0.0
     yargs-parser: ^18.1.2
   checksum: dbf687d6b938f01bbf11e158dde6df906282b70cd9295af0217ee8cefbd83ad09d49fa9458d0d5325b0e66f03df954a38986db96f91e5b46ccdbbaf9a0157b23
+  languageName: node
+  linkType: hard
+
+"yup@npm:^0.32.9":
+  version: 0.32.9
+  resolution: "yup@npm:0.32.9"
+  dependencies:
+    "@babel/runtime": ^7.10.5
+    "@types/lodash": ^4.14.165
+    lodash: ^4.17.20
+    lodash-es: ^4.17.15
+    nanoclone: ^0.2.1
+    property-expr: ^2.0.4
+    toposort: ^2.0.2
+  checksum: 9da93a58fdd02562b676dc582125b4484d4f06b597498c83e249bdb604937669089e6d38d8a890fe83a256684e6386b389f65e9aef4b6efa5298a3ddb3084ba8
   languageName: node
   linkType: hard
 
