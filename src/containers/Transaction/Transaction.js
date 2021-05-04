@@ -16,8 +16,15 @@ const defaultValues = {
 };
 
 const schema = yup.object().shape({
-  currencyName: yup.string().required(),
-  amount: yup.number().positive().integer().required()
+  currencyName: yup
+    .string()
+    .required(),
+  amount: yup
+    .number()
+    .positive()
+    .integer()
+    .transform((val) => (Number.isNaN(val) ? undefined : val))
+    .required()
 });
 
 const errorMessages = {
