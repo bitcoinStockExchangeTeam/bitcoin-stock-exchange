@@ -11,7 +11,7 @@ const defaultValues = {
   isBuying: true,
   currencyName: '',
   price: '',
-  amount: '',
+  amount: 0,
   total: ''
 };
 
@@ -23,7 +23,8 @@ const schema = yup.object().shape({
 const errorMessages = {
   required: 'The field is required',
   typeError: 'Value must be a number',
-  integer: 'Value must be an integer'
+  integer: 'Value must be an integer',
+  min: 'Amount must be a positive number'
 };
 
 const Transaction = ({ stockExchangeData }) => {
@@ -45,6 +46,10 @@ const Transaction = ({ stockExchangeData }) => {
     // eslint-disable-next-line no-console
     console.log(data);
   };
+
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
 
   useEffect(() => {
     setValue('price', stockExchangeData.find((dataItem) => dataItem.name === currencyName)?.price || '');
@@ -119,6 +124,7 @@ const Transaction = ({ stockExchangeData }) => {
           render={({ field }) => (
             <Component.TextField
               id="amount"
+              type="number"
               label="Amount"
               variant="outlined"
               error={!!errors.amount}
