@@ -48,10 +48,6 @@ const Transaction = ({ stockExchangeData }) => {
   };
 
   useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
-  useEffect(() => {
     setValue('price', stockExchangeData.find((dataItem) => dataItem.name === currencyName)?.price || '');
   }, [currencyName, setValue, stockExchangeData]);
 
