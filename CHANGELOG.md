@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Github deploy script [@nilphym](https://github.com/nilphym). 
 - Redux with dev tools configuration [@nilphym](https://github.com/nilphym).
 - Redux-thunk middleware [@nilphym](https://github.com/nilphym).
 - React-router connected with Redux [@nilphym](https://github.com/nilphym).
