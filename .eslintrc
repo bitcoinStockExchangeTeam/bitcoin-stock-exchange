@@ -12,6 +12,7 @@
     "react/jsx-props-no-spreading": "off",
     "import/no-extraneous-dependencies": "off",
     "no-unused-vars": "warn",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "no-restricted-syntax": "off"
   }
 }

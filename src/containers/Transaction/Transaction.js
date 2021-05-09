@@ -27,7 +27,7 @@ const schema = yup.object().shape({
     .required()
 });
 
-const errorMessages = {
+export const errorMessages = {
   required: 'The field is required',
   typeError: 'Value must be a number',
   integer: 'Value must be an integer',
