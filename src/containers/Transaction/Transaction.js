@@ -15,24 +15,24 @@ const defaultValues = {
   total: ''
 };
 
-const schema = yup.object().shape({
-  currencyName: yup
-    .string()
-    .required(),
-  amount: yup
-    .number()
-    .positive()
-    .integer()
-    .transform((val) => (Number.isNaN(val) ? undefined : val))
-    .required()
-});
-
 export const errorMessages = {
   required: 'The field is required',
   typeError: 'Value must be a number',
   integer: 'Value must be an integer',
   min: 'Amount must be a positive number'
 };
+
+const schema = yup.object().shape({
+  currencyName: yup
+    .string()
+    .required(errorMessages.required),
+  amount: yup
+    .number(errorMessages.typeError)
+    .positive(errorMessages.min)
+    .integer(errorMessages.integer)
+    .transform((val) => (Number.isNaN(val) ? undefined : val))
+    .required(errorMessages.required)
+});
 
 const Transaction = ({ stockExchangeData }) => {
   const {
@@ -56,14 +56,14 @@ const Transaction = ({ stockExchangeData }) => {
 
   useEffect(() => {
     setValue('price', stockExchangeData.find((dataItem) => dataItem.name === currencyName)?.price || '');
-  }, [currencyName, setValue, stockExchangeData]);
+  }, [currencyName, stockExchangeData]);
 
   useEffect(() => {
     if (amount && currencyName && !errors.amount) {
       const total = stockExchangeData.find((dataItem) => dataItem.name === currencyName).price * getValues('amount');
       setValue('total', total.toFixed(2));
     }
-  }, [amount, currencyName, errors.amount, getValues, setValue, stockExchangeData]);
+  }, [amount, currencyName, errors.amount, stockExchangeData]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
@@ -105,7 +105,7 @@ const Transaction = ({ stockExchangeData }) => {
             )}
           />
           <Component.FormHelperText>
-            {errorMessages[errors.currencyName?.type]}
+            {errors.currencyName?.message}
           </Component.FormHelperText>
         </Component.FormControl>
         <Controller
@@ -131,7 +131,7 @@ const Transaction = ({ stockExchangeData }) => {
               label="Amount"
               variant="outlined"
               error={!!errors.amount}
-              helperText={errorMessages[errors.amount?.type]}
+              helperText={errors.amount?.message}
               {...field}
             />
           )}

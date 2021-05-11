@@ -13,6 +13,7 @@
     "import/no-extraneous-dependencies": "off",
     "no-unused-vars": "warn",
     "no-plusplus": "off",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }
