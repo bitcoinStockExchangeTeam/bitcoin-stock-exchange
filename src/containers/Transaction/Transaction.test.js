@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, act, within } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import Transaction, { errorMessages } from './Transaction';
 import useStockExchangeData from '../../hooks/useStockExchangeData';
 

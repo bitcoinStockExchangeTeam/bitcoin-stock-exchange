@@ -61,7 +61,7 @@ const Transaction = ({ stockExchangeData }) => {
   useEffect(() => {
     if (amount && currencyName && !errors.amount) {
       const total = stockExchangeData.find((dataItem) => dataItem.name === currencyName).price * getValues('amount');
-      setValue('total', total.toFixed(2));
+      setValue('total', parseFloat(total.toFixed(2)));
     }
   }, [amount, currencyName, errors.amount, stockExchangeData]);
 
@@ -151,7 +151,7 @@ const Transaction = ({ stockExchangeData }) => {
         />
       </div>
       <div className={styles.buttonContainer}>
-        <Component.Button type="submit" variant="contained" color="primary">
+        <Component.Button disabled={Object.keys(errors).length !== 0} type="submit" variant="contained" color="primary">
           Confirm
         </Component.Button>
         <Component.Button variant="outlined" color="primary" onClick={() => reset(defaultValues)}>
