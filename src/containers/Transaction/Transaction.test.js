@@ -58,4 +58,41 @@ describe('Transaction', () => {
     });
     expect(screen.getByLabelText('Amount').value).toBe('0');
   });
+
+  describe('when choose currency type', () => {
+    beforeEach(async () => {
+      await act(async () => {
+        fireEvent.input(screen.getByTestId('currencyName'), { target: { value: 'BTC' } });
+      });
+    });
+
+    it('should display its price', () => {
+      expect(screen.getByLabelText('Price').value).toBe('184406.98');
+    });
+
+    describe('and when change amount value', () => {
+      beforeEach(async () => {
+        await act(async () => {
+          fireEvent.input(screen.getByLabelText('Amount'), { target: { value: 15.3 } });
+        });
+      });
+
+      it('should update total value', () => {
+        expect(screen.getByLabelText('Total').value).toBe('2821426.79');
+      });
+
+      describe('and when change currenty type again', () => {
+        beforeEach(async () => {
+          await act(async () => {
+            fireEvent.input(screen.getByTestId('currencyName'), { target: { value: 'ETH' } });
+          });
+        });
+
+        it('should update price and total values', () => {
+          expect(screen.getByLabelText('Price').value).toBe('6138.07');
+          expect(screen.getByLabelText('Total').value).toBe('93912.47');
+        });
+      });
+    });
+  });
 });
