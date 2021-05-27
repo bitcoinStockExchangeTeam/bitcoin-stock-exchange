@@ -50,13 +50,16 @@ describe('Transaction', () => {
   it('should reset form when reset button is clicked', async () => {
     await act(async () => {
       fireEvent.input(screen.getByLabelText('Amount'), { target: { value: 15.3 } });
+      fireEvent.input(screen.getByTestId('currencyName'), { target: { value: 'ETH' } });
     });
     expect(screen.getByLabelText('Amount').value).toBe('15.3');
+    expect(screen.getByTestId('currencyName').value).toBe('ETH');
 
     await act(async () => {
       fireEvent.click(screen.getByRole('button', { name: 'Reset' }));
     });
     expect(screen.getByLabelText('Amount').value).toBe('0');
+    expect(screen.getByTestId('currencyName').value).toBe('');
   });
 
   describe('when choose currency type', () => {
