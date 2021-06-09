@@ -1,10 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Transaction from './Transaction';
-import useStockExchangeData from '../../hooks/useStockExchangeData';
 
 const TransactionWrapper = () => {
-  const stockExchangeData = useStockExchangeData();
-  return <Transaction stockExchangeData={stockExchangeData} />;
+  const stockState = useSelector((state) => state.stock);
+  return <Transaction stockExchangeData={stockState.stockData} />;
 };
 
 export default TransactionWrapper;
