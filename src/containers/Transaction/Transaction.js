@@ -42,7 +42,7 @@ const Transaction = ({ stockExchangeData }) => {
     watch,
     setValue,
     getValues,
-    formState: { errors }
+    formState: { errors, isValid }
   } = useForm({
     defaultValues,
     resolver: yupResolver(schema)
@@ -94,6 +94,7 @@ const Transaction = ({ stockExchangeData }) => {
                 labelId="currencyName"
                 id="currencyName"
                 label="currencyName"
+                inputProps={{ 'data-testid': 'currencyName' }}
                 {...field}
               >
                 {stockExchangeData.map((dataItem) => (
@@ -151,7 +152,7 @@ const Transaction = ({ stockExchangeData }) => {
         />
       </div>
       <div className={styles.buttonContainer}>
-        <Component.Button disabled={Object.keys(errors).length !== 0} type="submit" variant="contained" color="primary">
+        <Component.Button disabled={!isValid} type="submit" variant="contained" color="primary">
           Confirm
         </Component.Button>
         <Component.Button variant="outlined" color="primary" onClick={() => reset(defaultValues)}>
