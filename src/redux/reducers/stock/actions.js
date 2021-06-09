@@ -13,7 +13,7 @@ export const getStockFail = (error) => ({
 
 export const getStockSuccess = (stockData) => ({
   type: STOCK_GET_SUCCESS,
-  payload: stockData
+  payload: { stockData }
 });
 
 const AVAILABLE_STOCKS = ['BTC', 'ETH', 'ADA', 'DOGE', 'XRP', 'DOT', 'UNI', 'LINK', 'LTC', 'XLM'];
@@ -25,9 +25,8 @@ const parseDifferentSymbolLengths = (symbol) => (symbol.length > 3 ? `t${symbol}
 const createQueryParameter = () => AVAILABLE_STOCKS.map((symbol) => parseDifferentSymbolLengths(symbol)).join(',');
 
 const fetchStockData = async () => {
-  const { data } = await axios.get(
-    `${BASE_URL}tickers?symbols=${createQueryParameter()}`
-  );
+  const url = `${BASE_URL}tickers?symbols=${createQueryParameter()}`;
+  const { data } = await axios.get(url);
   return data;
 };
 
@@ -36,9 +35,7 @@ export const getTickers = () => async (dispatch) => {
   try {
     const data = await fetchStockData();
     dispatch(getStockSuccess(data));
-    return data;
   } catch (error) {
     dispatch(getStockFail(error));
-    return error;
   }
 };

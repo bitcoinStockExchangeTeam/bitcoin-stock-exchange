@@ -1,7 +1,7 @@
 import { StockBuilder } from '../../../utils/stockBuilder';
 import { STOCK_GET_INIT, STOCK_GET_SUCCESS, STOCK_GET_FAILURE } from './actions';
 
-const initialState = {
+export const initialState = {
   stockData: [],
   isLoading: true,
   isError: false,
@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
     case STOCK_GET_SUCCESS: {
       return {
         ...state,
-        stockData: action.payload.map(
+        stockData: action.payload.stockData.map(
           (item) => new StockBuilder()
             .setUuid()
             .setName(item[0])
@@ -38,6 +38,7 @@ export default (state = initialState, action) => {
         ...state,
         stockData: initialState.stockData,
         isLoading: false,
+        isError: true,
         error: action.payload.error
       };
     }
