@@ -50,12 +50,52 @@ describe('Transaction', () => {
   it('should reset form when reset button is clicked', async () => {
     await act(async () => {
       fireEvent.input(screen.getByLabelText('Amount'), { target: { value: 15.3 } });
+      fireEvent.input(screen.getByTestId('currencyName'), { target: { value: 'ETH' } });
     });
     expect(screen.getByLabelText('Amount').value).toBe('15.3');
+    expect(screen.getByTestId('currencyName').value).toBe('ETH');
 
     await act(async () => {
       fireEvent.click(screen.getByRole('button', { name: 'Reset' }));
     });
     expect(screen.getByLabelText('Amount').value).toBe('0');
+    expect(screen.getByTestId('currencyName').value).toBe('');
+  });
+
+  describe('when choose currency type', () => {
+    beforeEach(async () => {
+      await act(async () => {
+        fireEvent.input(screen.getByTestId('currencyName'), { target: { value: 'BTC' } });
+      });
+    });
+
+    it('should display its price', () => {
+      expect(screen.getByLabelText('Price').value).toBe('184406.98');
+    });
+
+    describe('and when change amount value', () => {
+      beforeEach(async () => {
+        await act(async () => {
+          fireEvent.input(screen.getByLabelText('Amount'), { target: { value: 15.3 } });
+        });
+      });
+
+      it('should update total value', () => {
+        expect(screen.getByLabelText('Total').value).toBe('2821426.79');
+      });
+
+      describe('and when change currenty type again', () => {
+        beforeEach(async () => {
+          await act(async () => {
+            fireEvent.input(screen.getByTestId('currencyName'), { target: { value: 'ETH' } });
+          });
+        });
+
+        it('should update price and total values', () => {
+          expect(screen.getByLabelText('Price').value).toBe('6138.07');
+          expect(screen.getByLabelText('Total').value).toBe('93912.47');
+        });
+      });
+    });
   });
 });

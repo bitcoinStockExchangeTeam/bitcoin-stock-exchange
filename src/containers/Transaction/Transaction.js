@@ -94,6 +94,7 @@ const Transaction = ({ stockExchangeData }) => {
                 labelId="currencyName"
                 id="currencyName"
                 label="currencyName"
+                inputProps={{ 'data-testid': 'currencyName' }}
                 {...field}
               >
                 {stockExchangeData.map((dataItem) => (
