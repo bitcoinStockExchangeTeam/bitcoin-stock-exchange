@@ -25,7 +25,7 @@ const formatPrice = (price) => {
 
 const formatChange = (change) => {
   const changeRounded = roundNumber(change);
-  return changeRounded >= 0 ? `+${changeRounded}%` : `-${changeRounded}%`;
+  return changeRounded >= 0 ? `+${changeRounded}%` : `${changeRounded}%`;
 };
 
 const formatCap = (cap) => {
