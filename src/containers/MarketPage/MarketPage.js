@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Transaction from '../Transaction';
 import Table from '../../components/CurrencyTable';
@@ -8,8 +8,13 @@ import { getTickers } from '../../redux/reducers/stock/actions';
 const MarketPage = () => {
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getTickers());
+    const intervalID = setInterval(() => dispatch(getTickers()), 10000);
+
+    return () => {
+      clearInterval(intervalID);
+    };
   }, []);
 
   return (
