@@ -12,7 +12,7 @@ export class StockBuilder {
   }
 
   setChange(change) {
-    this.change = change;
+    this.change = change * 100;
     return this;
   }
 

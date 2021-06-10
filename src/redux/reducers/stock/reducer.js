@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
           (item) => new StockBuilder()
             .setUuid()
             .setName(item[0])
-            .setChange(item[5])
+            .setChange(item[6])
             .setPrice(item[7])
             .build()
         ),
