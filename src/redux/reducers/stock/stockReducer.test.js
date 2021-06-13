@@ -107,7 +107,7 @@ describe('Stock reducer', () => {
       .toEqual({ isLoading: false, isError: false, error: null });
 
     expect({ name, change, price, cap })
-      .toEqual({ name: 'BTC', change: 4697, price: 36506, cap: undefined });
+      .toEqual({ name: 'BTC', change: 14.77, price: 36506, cap: undefined });
   });
 
   it('should handle STOCK_GET_FAILURE', () => {
