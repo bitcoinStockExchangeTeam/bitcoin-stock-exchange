@@ -3,6 +3,8 @@ import * as Component from '@material-ui/core';
 import PropTypes from 'prop-types';
 import colors from '../../colors';
 
+const currencyName = 'USD';
+
 const roundNumber = (number) => (Math.round(number * 100) / 100).toFixed(2);
 
 const formatIntegerPart = (number) => {
@@ -20,7 +22,7 @@ const formatPrice = (price) => {
   const priceRounded = roundNumber(price);
   const priceFormatted = formatIntegerPart(priceRounded);
 
-  return `${priceFormatted} USD`;
+  return `${priceFormatted} ${currencyName}`;
 };
 
 const formatChange = (change) => {
@@ -32,7 +34,7 @@ const formatCap = (cap) => {
   const capRounded = roundNumber(cap);
   const capFormatted = formatIntegerPart(capRounded);
 
-  return cap === undefined ? 'Unknown' : `${capFormatted}M PLN`;
+  return cap === undefined ? 'Unknown' : `${capFormatted}M ${currencyName}`;
 };
 
 const formatStockExchangeData = (stockExchangeData) => (
