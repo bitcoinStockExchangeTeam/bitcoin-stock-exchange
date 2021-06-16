@@ -20,7 +20,7 @@ const formatPrice = (price) => {
   const priceRounded = roundNumber(price);
   const priceFormatted = formatIntegerPart(priceRounded);
 
-  return `${priceFormatted} PLN`;
+  return `${priceFormatted} USD`;
 };
 
 const formatChange = (change) => {
