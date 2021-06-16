@@ -10,11 +10,11 @@ const MarketPage = () => {
 
   useEffect(() => {
     dispatch(getTickers());
-    const intervalID = setInterval(() => dispatch(getTickers()), 10000);
+    // const intervalID = setInterval(() => dispatch(getTickers()), 10000);
 
-    return () => {
-      clearInterval(intervalID);
-    };
+    // return () => {
+    //   clearInterval(intervalID);
+    // };
   }, []);
 
   return (
