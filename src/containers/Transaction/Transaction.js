@@ -60,7 +60,7 @@ const Transaction = ({ stockExchangeData }) => {
 
   useEffect(() => {
     if (amount && currencyName && !errors.amount) {
-      const total = stockExchangeData.find((dataItem) => dataItem.name === currencyName).price * getValues('amount');
+      const total = stockExchangeData.find((dataItem) => dataItem.name === currencyName)?.price * getValues('amount');
       setValue('total', parseFloat(total.toFixed(2)));
     }
   }, [amount, currencyName, errors.amount, stockExchangeData]);

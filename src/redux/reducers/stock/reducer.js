@@ -13,7 +13,6 @@ export default (state = initialState, action) => {
     case STOCK_GET_INIT: {
       return {
         ...state,
-        stockData: initialState.stockData,
         isLoading: true,
         isError: false,
         error: initialState.error
