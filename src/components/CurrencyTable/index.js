@@ -13,14 +13,14 @@ const useStyles = makeStyles(() => ({
 }));
 
 const CurrencyTableWrapper = () => {
-  const stockState = useSelector((state) => state.stock);
+  const { isLoading, isError, stockData } = useSelector((state) => state.stock);
   const classes = useStyles();
 
-  if (stockState.isLoading) {
+  if (isLoading) {
     return <div className={classes.center}><CircularProgress /></div>;
   }
 
-  if (stockState.isError) {
+  if (isError) {
     return (
       <div className={classes.center}>
         <Text text="There was error when connecting to API. Please wait a couple of seconds and refresh the page." type="HEADING_4" state="ERROR" />
@@ -28,7 +28,7 @@ const CurrencyTableWrapper = () => {
     );
   }
 
-  return <CurrencyTable stockExchangeData={stockState.stockData} />;
+  return <CurrencyTable stockExchangeData={stockData} />;
 };
 
 export default CurrencyTableWrapper;

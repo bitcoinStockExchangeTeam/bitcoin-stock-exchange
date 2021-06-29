@@ -2,7 +2,6 @@
 import axios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { StockBuilder } from '../../../utils/stockBuilder';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
 
@@ -57,17 +56,15 @@ describe('Async action creator', () => {
   it('creates STOCK_GET_SUCCESS when fetching stock data has been done', async () => {
     axios.get.mockImplementationOnce(() => Promise.resolve({ data: response }));
 
-    return store.dispatch(actions.getTickers()).then(() => {
-      expect(store.getActions()).toEqual(expectedSuccessActions);
-    });
+    await store.dispatch(actions.getTickers());
+    expect(store.getActions()).toEqual(expectedSuccessActions);
   });
 
   it('creates STOCK_GET_FAILURE when fetching stock data failed', async () => {
     axios.get.mockImplementationOnce(() => Promise.reject('Failed to fetch data'));
 
-    return store.dispatch(actions.getTickers()).then(() => {
-      expect(store.getActions()).toEqual(expectedFailureActions);
-    });
+    await store.dispatch(actions.getTickers());
+    expect(store.getActions()).toEqual(expectedFailureActions);
   });
 });
 
@@ -81,7 +78,7 @@ describe('Stock reducer', () => {
       isLoading: false,
       isError: false,
       error: null,
-      stockData: [new StockBuilder().build()]
+      stockData: []
     }].forEach((state) => {
       expect(
         reducer(state, actions.getStockInit())

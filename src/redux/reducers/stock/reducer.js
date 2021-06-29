@@ -23,7 +23,6 @@ export default (state = initialState, action) => {
         ...state,
         stockData: action.payload.stockData.map(
           (item) => new StockBuilder()
-            .setUuid()
             .setName(item[0])
             .setChange(item[6])
             .setPrice(item[7])

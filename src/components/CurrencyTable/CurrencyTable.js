@@ -34,7 +34,7 @@ const formatCap = (cap) => {
   const capRounded = roundNumber(cap);
   const capFormatted = formatIntegerPart(capRounded);
 
-  return cap === undefined ? 'Unknown' : `${capFormatted}M ${currencyName}`;
+  return !cap ? 'Unknown' : `${capFormatted}M ${currencyName}`;
 };
 
 const formatStockExchangeData = (stockExchangeData) => (
