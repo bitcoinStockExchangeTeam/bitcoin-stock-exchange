@@ -44,6 +44,7 @@ const Transaction = ({ stockExchangeData }) => {
     getValues,
     formState: { errors, isValid }
   } = useForm({
+    mode: 'onChange',
     defaultValues,
     resolver: yupResolver(schema)
   });
