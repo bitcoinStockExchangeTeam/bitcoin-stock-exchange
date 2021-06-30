@@ -1,7 +1,9 @@
 import React from 'react';
 import * as Component from '@material-ui/core';
-import useStockExchangeData from '../../hooks/useStockExchangeData';
+import PropTypes from 'prop-types';
 import colors from '../../colors';
+
+const currencyName = 'USD';
 
 const roundNumber = (number) => (Math.round(number * 100) / 100).toFixed(2);
 
@@ -20,7 +22,7 @@ const formatPrice = (price) => {
   const priceRounded = roundNumber(price);
   const priceFormatted = formatIntegerPart(priceRounded);
 
-  return `${priceFormatted} PLN`;
+  return `${priceFormatted} ${currencyName}`;
 };
 
 const formatChange = (change) => {
@@ -32,7 +34,7 @@ const formatCap = (cap) => {
   const capRounded = roundNumber(cap);
   const capFormatted = formatIntegerPart(capRounded);
 
-  return `${capFormatted}M PLN`;
+  return !cap ? 'Unknown' : `${capFormatted}M ${currencyName}`;
 };
 
 const formatStockExchangeData = (stockExchangeData) => (
@@ -46,8 +48,8 @@ const formatStockExchangeData = (stockExchangeData) => (
   ))
 );
 
-const CurrencyTable = () => {
-  const stockExchangeDataFormatted = formatStockExchangeData(useStockExchangeData());
+const CurrencyTable = ({ stockExchangeData }) => {
+  const stockExchangeDataFormatted = formatStockExchangeData(stockExchangeData || []);
 
   return (
     <Component.TableContainer component={Component.Paper}>
@@ -81,3 +83,12 @@ const CurrencyTable = () => {
 };
 
 export default CurrencyTable;
+
+CurrencyTable.propTypes = {
+  stockExchangeData: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    price: PropTypes.number,
+    change: PropTypes.number,
+    cap: PropTypes.number
+  })).isRequired
+};

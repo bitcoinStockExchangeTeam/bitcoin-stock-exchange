@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Hook with stock exchange sample data [@nilphym](https://github.com/nilphym).
+- Redux-mock-store library [@nilphym](https://github.com/nilphym).
+- Integration with [Bitfinex API](https://docs.bitfinex.com/) through Redux with tests [@nilphym](https://github.com/nilphym).
 - CurrencyTable, MarketPage, Transaction and SiteHeading components [@nilphym](https://github.com/nilphym).
 - Redux with dev tools configuration [@nilphym](https://github.com/nilphym).
 - Redux-thunk middleware [@nilphym](https://github.com/nilphym).

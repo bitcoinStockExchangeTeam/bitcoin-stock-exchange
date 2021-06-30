@@ -1,13 +1,76 @@
 import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
+import { StockBuilder } from '../../utils/stockBuilder';
 import Transaction, { errorMessages } from './Transaction';
-import useStockExchangeData from '../../hooks/useStockExchangeData';
+
+const sampleData = [
+  {
+    name: 'BTC',
+    price: 184406.98,
+    change: 0.049,
+    cap: 3444312.55
+  },
+  {
+    name: 'ETH',
+    price: 6138.07,
+    change: 0.059,
+    cap: 704883.33
+  },
+  {
+    name: 'BNB',
+    price: 938.31,
+    change: -0.031,
+    cap: 144583.29
+  },
+  {
+    name: 'USDT',
+    price: 3.27,
+    change: -0.003,
+    cap: 129465.66
+  },
+  {
+    name: 'AAA',
+    price: 184406.98,
+    change: 0.049,
+    cap: 3444312.55
+  },
+  {
+    name: 'BBB',
+    price: 184406.98,
+    change: 0.049,
+    cap: 3444312.55
+  },
+  {
+    name: 'CCC',
+    price: 184406.98,
+    change: 0.049,
+    cap: 3444312.55
+  },
+  {
+    name: 'DDD',
+    price: 184406.98,
+    change: 0.049,
+    cap: 3444312.55
+  },
+  {
+    name: 'EEE',
+    price: 184406.98,
+    change: 0.049,
+    cap: 3444312.55
+  }
+];
 
 describe('Transaction', () => {
-  const stockExchangeData = useStockExchangeData();
+  const stockExchangeData = sampleData.map((data) => new StockBuilder()
+    .setName(data.name)
+    .setChange(data.change)
+    .setPrice(data.price)
+    .build());
 
-  beforeEach(() => {
-    render(<Transaction stockExchangeData={stockExchangeData} />);
+  beforeEach(async () => {
+    await act(async () => {
+      render(<Transaction stockExchangeData={stockExchangeData} />);
+    });
   });
 
   it('should display required error when values are empty', async () => {
@@ -29,14 +92,6 @@ describe('Transaction', () => {
       });
       expect(screen.getByText(errorMessages.min)).toBeInTheDocument();
     }
-  });
-
-  it('should display integer error when amount field is not integer', async () => {
-    await act(async () => {
-      fireEvent.input(screen.getByLabelText('Amount'), { target: { value: 15.3 } });
-      fireEvent.submit(screen.getByRole('button', { name: 'Confirm' }));
-    });
-    expect(screen.getByText(errorMessages.integer)).toBeInTheDocument();
   });
 
   it('should change transaction type when switch for transaction type is clicked', async () => {
@@ -91,7 +146,7 @@ describe('Transaction', () => {
           });
         });
 
-        it('should update price and total values', () => {
+        it('should update price and total values', async () => {
           expect(screen.getByLabelText('Price').value).toBe('6138.07');
           expect(screen.getByLabelText('Total').value).toBe('93912.47');
         });
