@@ -67,8 +67,10 @@ describe('Transaction', () => {
     .setPrice(data.price)
     .build());
 
-  beforeEach(() => {
-    render(<Transaction stockExchangeData={stockExchangeData} />);
+  beforeEach(async () => {
+    await act(async () => {
+      render(<Transaction stockExchangeData={stockExchangeData} />);
+    });
   });
 
   it('should display required error when values are empty', async () => {
@@ -90,14 +92,6 @@ describe('Transaction', () => {
       });
       expect(screen.getByText(errorMessages.min)).toBeInTheDocument();
     }
-  });
-
-  it('should display integer error when amount field is not integer', async () => {
-    await act(async () => {
-      fireEvent.input(screen.getByLabelText('Amount'), { target: { value: 15.3 } });
-      fireEvent.submit(screen.getByRole('button', { name: 'Confirm' }));
-    });
-    expect(screen.getByText(errorMessages.integer)).toBeInTheDocument();
   });
 
   it('should change transaction type when switch for transaction type is clicked', async () => {
@@ -152,7 +146,7 @@ describe('Transaction', () => {
           });
         });
 
-        it('should update price and total values', () => {
+        it('should update price and total values', async () => {
           expect(screen.getByLabelText('Price').value).toBe('6138.07');
           expect(screen.getByLabelText('Total').value).toBe('93912.47');
         });

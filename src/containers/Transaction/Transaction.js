@@ -18,7 +18,6 @@ const defaultValues = {
 export const errorMessages = {
   required: 'The field is required',
   typeError: 'Value must be a number',
-  integer: 'Value must be an integer',
   min: 'Amount must be a positive number'
 };
 
@@ -29,7 +28,6 @@ const schema = yup.object().shape({
   amount: yup
     .number(errorMessages.typeError)
     .positive(errorMessages.min)
-    .integer(errorMessages.integer)
     .transform((val) => (Number.isNaN(val) ? undefined : val))
     .required(errorMessages.required)
 });
