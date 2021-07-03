@@ -32,14 +32,14 @@ describe('Action creators', () => {
   });
 });
 
+const sampleResponse = [{ symbol: 'btc', image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579', current_price: 34883, market_cap: 653759402456, price_change_percentage_24h: 3.91425, market_cap_change_24h: 26894035129 }];
+
 describe('Async action creator', () => {
   const mockStore = configureMockStore([thunk]);
 
-  const response = [['tBTCUSD', 36491, 15.304800269999998, 36506, 27.237893489999994, 4697, 0.1477, 36506, 17992.73308029, 36646, 31508]];
-
   const expectedSuccessActions = [
     { type: actions.STOCK_GET_INIT },
-    { payload: { stockData: response }, type: actions.STOCK_GET_SUCCESS }
+    { payload: { stockData: sampleResponse }, type: actions.STOCK_GET_SUCCESS }
   ];
 
   const expectedFailureActions = [
@@ -54,7 +54,7 @@ describe('Async action creator', () => {
   });
 
   it('creates STOCK_GET_SUCCESS when fetching stock data has been done', async () => {
-    axios.get.mockImplementationOnce(() => Promise.resolve({ data: response }));
+    axios.get.mockImplementationOnce(() => Promise.resolve({ data: sampleResponse }));
 
     await store.dispatch(actions.getTickers());
     expect(store.getActions()).toEqual(expectedSuccessActions);
@@ -93,18 +93,22 @@ describe('Stock reducer', () => {
   it('should handle STOCK_GET_SUCCESS', () => {
     const { stockData, isLoading, isError, error } = reducer(
       initialState,
-      actions.getStockSuccess(
-        [['tBTCUSD', 36491, 15.304800269999998, 36506, 27.237893489999994, 4697, 0.1477, 36506, 17992.73308029, 36646, 31508]]
-      )
+      actions.getStockSuccess(sampleResponse)
     );
 
-    const [{ name, change, price, cap }] = stockData;
+    const [{ name, change, price, cap, imageUrl }] = stockData;
 
     expect({ isLoading, isError, error })
       .toEqual({ isLoading: false, isError: false, error: null });
 
-    expect({ name, change, price, cap })
-      .toEqual({ name: 'BTC', change: 14.77, price: 36506, cap: undefined });
+    expect({ name, change, price, cap, imageUrl })
+      .toEqual({
+        name: sampleResponse[0].symbol,
+        change: sampleResponse[0].price_change_percentage_24h,
+        price: sampleResponse[0].current_price,
+        cap: sampleResponse[0].market_cap,
+        imageUrl: sampleResponse[0].image
+      });
   });
 
   it('should handle STOCK_GET_FAILURE', () => {

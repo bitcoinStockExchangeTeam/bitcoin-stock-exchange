@@ -1,26 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 
-const shortNameLength = 7;
-const shortCurrencyLength = 3;
-const longCurrencyLength = 4;
-
-const isNameShort = (name) => shortNameLength <= name.length;
-
-const grabCurrencyName = (string, currencyLength) => {
-  const currencyRegex = `[A-Z]{${currencyLength}}`;
-  return string.match(currencyRegex)[0];
-};
-
-const decimalToPercent = (decimal) => decimal * 100;
-
 export class StockBuilder {
   setName(name) {
-    this.name = grabCurrencyName(name, isNameShort ? shortCurrencyLength : longCurrencyLength);
+    this.name = name;
     return this;
   }
 
   setChange(change) {
-    this.change = decimalToPercent(change);
+    this.change = change;
     return this;
   }
 
@@ -34,13 +21,19 @@ export class StockBuilder {
     return this;
   }
 
+  setImageUrl(imageUrl) {
+    this.imageUrl = imageUrl;
+    return this;
+  }
+
   build() {
     return ({
       uuid: uuidv4(),
       name: this.name,
       change: this.change,
       price: this.price,
-      cap: this.cap
+      cap: this.cap,
+      imageUrl: this.imageUrl
     });
   }
 }

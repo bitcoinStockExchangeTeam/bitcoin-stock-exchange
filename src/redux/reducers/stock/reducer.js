@@ -23,9 +23,11 @@ export default (state = initialState, action) => {
         ...state,
         stockData: action.payload.stockData.map(
           (item) => new StockBuilder()
-            .setName(item[0])
-            .setChange(item[6])
-            .setPrice(item[7])
+            .setName(item.symbol)
+            .setChange(item.price_change_percentage_24h)
+            .setPrice(item.current_price)
+            .setCap(item.market_cap)
+            .setImageUrl(item.image)
             .build()
         ),
         isLoading: false

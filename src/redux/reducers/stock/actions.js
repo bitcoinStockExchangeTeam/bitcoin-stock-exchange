@@ -16,16 +16,12 @@ export const getStockSuccess = (stockData) => ({
   payload: { stockData }
 });
 
-const AVAILABLE_STOCKS = ['BTC', 'ETH', 'ADA', 'DOGE', 'XRP', 'DOT', 'UNI', 'LINK', 'LTC', 'XLM'];
-const BASE_STOCK = 'USD';
-const BASE_URL = 'https://api-pub.bitfinex.com/v2/';
-
-const parseDifferentSymbolLengths = (symbol) => (symbol.length > 3 ? `t${symbol}:${BASE_STOCK}` : `t${symbol}${BASE_STOCK}`);
-
-const createQueryParameter = () => AVAILABLE_STOCKS.map((symbol) => parseDifferentSymbolLengths(symbol)).join(',');
+const AVAILABLE_STOCKS = ['bitcoin', 'ethereum', 'cardano', 'dogecoin', 'ripple', 'polkadot', 'uniswap', 'chainlink', 'litecoin', 'stellar'];
+const BASE_STOCK = 'usd';
+const BASE_URL = 'https://api.coingecko.com/api/v3/coins/markets';
 
 const fetchStockData = async () => {
-  const url = `${BASE_URL}tickers?symbols=${createQueryParameter()}`;
+  const url = `${BASE_URL}?vs_currency=${BASE_STOCK}&ids=${AVAILABLE_STOCKS.join(',')}`;
   const { data } = await axios.get(url);
   return data;
 };

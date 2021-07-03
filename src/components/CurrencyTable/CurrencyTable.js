@@ -56,6 +56,7 @@ const CurrencyTable = ({ stockExchangeData }) => {
       <Component.Table aria-label="simple table">
         <Component.TableHead>
           <Component.TableRow>
+            <Component.TableCell />
             <Component.TableCell>Name</Component.TableCell>
             <Component.TableCell align="right">Current Price</Component.TableCell>
             <Component.TableCell align="right">24h Change</Component.TableCell>
@@ -65,7 +66,8 @@ const CurrencyTable = ({ stockExchangeData }) => {
         <Component.TableBody>
           {stockExchangeDataFormatted.map((dataItem) => (
             <Component.TableRow key={dataItem.uuid}>
-              <Component.TableCell component="th" scope="row">{dataItem.name}</Component.TableCell>
+              <Component.TableCell component="th" scope="row"><Component.Avatar alt={dataItem.name} src={dataItem.imageUrl} /></Component.TableCell>
+              <Component.TableCell component="th" scope="row">{dataItem.name.toUpperCase()}</Component.TableCell>
               <Component.TableCell align="right">{dataItem.price}</Component.TableCell>
               <Component.TableCell
                 style={dataItem.change[0] === '+' ? { color: colors.success } : { color: colors.error }}

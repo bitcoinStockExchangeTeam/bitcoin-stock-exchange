@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Switch to [Coingecko API](https://www.coingecko.com/en/api) [@nilphym](https://github.com/nilphym).
 - ESLint expects line break for multiple elements in brackets [@nilphym](https://github.com/nilphym).
 
 ### Removed
