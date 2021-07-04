@@ -103,7 +103,7 @@ describe('Stock reducer', () => {
 
     expect({ name, change, price, cap, imageUrl })
       .toEqual({
-        name: sampleResponse[0].symbol,
+        name: sampleResponse[0].symbol.toUpperCase(),
         change: sampleResponse[0].price_change_percentage_24h,
         price: sampleResponse[0].current_price,
         cap: sampleResponse[0].market_cap,
