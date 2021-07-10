@@ -16,7 +16,18 @@ export const getStockSuccess = (stockData) => ({
   payload: { stockData }
 });
 
-const AVAILABLE_STOCKS = ['bitcoin', 'ethereum', 'cardano', 'dogecoin', 'ripple', 'polkadot', 'uniswap', 'chainlink', 'litecoin', 'stellar'];
+const AVAILABLE_STOCKS = [
+  'bitcoin',
+  'ethereum',
+  'cardano',
+  'dogecoin',
+  'ripple',
+  'polkadot',
+  'uniswap',
+  'chainlink',
+  'litecoin',
+  'stellar'
+];
 const BASE_STOCK = 'usd';
 const BASE_URL = 'https://api.coingecko.com/api/v3/coins/markets';
 

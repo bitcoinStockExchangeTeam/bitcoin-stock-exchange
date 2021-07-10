@@ -66,7 +66,9 @@ const CurrencyTable = ({ stockExchangeData }) => {
         <Component.TableBody>
           {stockExchangeDataFormatted.map((dataItem) => (
             <Component.TableRow key={dataItem.uuid}>
-              <Component.TableCell component="th" scope="row"><Component.Avatar alt={dataItem.name} src={dataItem.imageUrl} /></Component.TableCell>
+              <Component.TableCell component="th" scope="row">
+                <Component.Avatar alt={dataItem.name} src={dataItem.imageUrl} />
+              </Component.TableCell>
               <Component.TableCell component="th" scope="row">{dataItem.name}</Component.TableCell>
               <Component.TableCell align="right">{dataItem.price}</Component.TableCell>
               <Component.TableCell

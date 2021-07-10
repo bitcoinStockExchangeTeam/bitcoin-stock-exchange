@@ -23,7 +23,11 @@ const CurrencyTableWrapper = () => {
   if (isError) {
     return (
       <div className={classes.center}>
-        <Text text="There was error when connecting to API. Please wait a couple of seconds and refresh the page." type="HEADING_4" state="ERROR" />
+        <Text
+          text="There was error when connecting to API. Please wait a couple of seconds and refresh the page."
+          type="HEADING_4"
+          state="ERROR"
+        />
       </div>
     );
   }

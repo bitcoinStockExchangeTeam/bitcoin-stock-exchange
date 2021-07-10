@@ -32,7 +32,14 @@ describe('Action creators', () => {
   });
 });
 
-const sampleResponse = [{ symbol: 'btc', image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579', current_price: 34883, market_cap: 653759402456, price_change_percentage_24h: 3.91425, market_cap_change_24h: 26894035129 }];
+const sampleResponse = [{
+  symbol: 'btc',
+  image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
+  current_price: 34883,
+  market_cap: 653759402456,
+  price_change_percentage_24h: 3.91425,
+  market_cap_change_24h: 26894035129
+}];
 
 describe('Async action creator', () => {
   const mockStore = configureMockStore([thunk]);
