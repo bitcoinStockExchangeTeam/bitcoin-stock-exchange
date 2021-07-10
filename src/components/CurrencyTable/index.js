@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -12,11 +12,18 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
+let canShowSpinner;
+
 const CurrencyTableWrapper = () => {
   const { isLoading, isError, stockData } = useSelector((state) => state.stock);
   const classes = useStyles();
 
-  if (isLoading) {
+  useEffect(() => {
+    canShowSpinner = true;
+  }, []);
+
+  if (isLoading && canShowSpinner) {
+    canShowSpinner = false;
     return <div className={classes.center}><CircularProgress /></div>;
   }
 
