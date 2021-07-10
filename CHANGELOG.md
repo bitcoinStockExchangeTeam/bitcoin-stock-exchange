@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Stylelint no longer requires `foo` at the beginning of sass variables [@nilphym](https://github.com/nilphym).
+- Currency table no longer flickers after fetching the same data from api [@nilphym](https://github.com/nilphym).
 
 ## [1.0.0] - 2021-02-03
 
