@@ -10,7 +10,7 @@ const userProfile = {
   }
 };
 
-describe('Function to add currency to user\'s profile', () => {
+describe('addCurrency function', () => {
   it('should add specified amount of currency to profile', () => {
     const amount = 5;
     addCurrency(userProfile, 'USD', amount);
@@ -24,7 +24,7 @@ describe('Function to add currency to user\'s profile', () => {
   });
 });
 
-describe('Function to get user from database by id', () => {
+describe('getUserById function', () => {
   it('should get user sucessfully', async () => {
     await localforage.setItem(USERS_PROFILES, [userProfile]);
     expect(await getUserById(1)).toStrictEqual(userProfile);
@@ -35,7 +35,25 @@ describe('Function to get user from database by id', () => {
   });
 });
 
-describe('Function to exchange currency', () => {
+describe('getAvailableUserFunds function', () => {
+  beforeAll(async () => {
+    userProfile.funds = {
+      USD: 50,
+      ETH: 100
+    };
+    await localforage.setItem(USERS_PROFILES, [userProfile]);
+  });
+
+  it('should return user funds correctly', async () => {
+    expect(await walletService.getAvailableUserFunds(1, 'ETH')).toBe(100);
+  });
+
+  it('should return 0 if user have no such currency', async () => {
+    expect(await walletService.getAvailableUserFunds(1, 'BTC')).toBe(0);
+  });
+});
+
+describe('exchangeCurrency function', () => {
   beforeEach(async () => {
     userProfile.funds = {
       USD: 50,

@@ -14,7 +14,7 @@ export default {
   async getAvailableUserFunds(userId, currencyName) {
     try {
       const userFunds = (await getUserById(userId)).funds;
-      return userFunds.get(currencyName) ?? 0;
+      return userFunds[currencyName] ?? 0;
     } catch (err) {
       console.log(err);
       return 0;
