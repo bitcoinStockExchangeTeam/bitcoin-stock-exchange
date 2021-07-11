@@ -34,13 +34,13 @@ export default {
   },
 
   async exchange(transactionInfo) {
-    const [isSufficient, handleExchange] = isUserBuying(transactionInfo.amount)
-      ? [isBaseCurrencySufficient, walletService.buyCurrency]
-      : [isCryptocurrencySufficient, walletService.sellCurrency];
+    const isSufficient = isUserBuying(transactionInfo.amount)
+      ? isBaseCurrencySufficient
+      : isCryptocurrencySufficient;
 
     if (!await isSufficient(transactionInfo)) {
       return false;
     }
-    return handleExchange(transactionInfo);
+    return walletService.exchangeCurrency(transactionInfo);
   }
 };
