@@ -3,6 +3,7 @@
       "stylelint-scss"
     ],
     "rules": {
+      "scss/dollar-variable-pattern": "^foo",
       "scss/selector-no-redundant-nesting-selector": true,
       "at-rule-name-case": "lower",
       "at-rule-name-space-after": "always-single-line",
@@ -23,6 +24,7 @@
       "declaration-block-semicolon-space-after": "always-single-line",
       "declaration-block-semicolon-space-before": "never",
       "declaration-block-single-line-max-declarations": 1,
+      "declaration-block-trailing-semicolon": "always",
       "declaration-colon-newline-after": "always-multi-line",
       "declaration-colon-space-after": "always-single-line",
       "declaration-colon-space-before": "never",
@@ -69,6 +71,7 @@
       "selector-pseudo-class-parentheses-space-inside": "never",
       "selector-pseudo-element-case": "lower",
       "selector-pseudo-element-colon-notation": "double",
+      "selector-type-case": "lower",
       "unit-case": "lower",
       "value-keyword-case": "lower",
       "value-list-comma-newline-after": "always-multi-line",
