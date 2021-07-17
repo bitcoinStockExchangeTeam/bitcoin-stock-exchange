@@ -1,77 +1,74 @@
-import localforage from 'localforage';
-import transactionService, { isUserBuying, isBaseCurrencySufficient } from './transactionService';
-import { USERS_PROFILES, TRANSACTIONS_HISTORY_KEY } from '../utils/constants';
-
-describe('isUserBuying function', () => {
-  it('should return true if user buys currency', () => {
-    expect(isUserBuying(12)).toBe(true);
-  });
-
-  it('should return false if user sells currency', () => {
-    expect(isUserBuying(-7)).toBe(false);
-  });
-});
+import database from '../utils/database';
+import walletService from './walletService';
+import { hasSufficientFunds, exchangeCrypto } from './transactionService';
+import { USERS_PROFILES, BASE_CURRENCY } from '../utils/constants';
+import { NOT_ENOUGH_FUNDS } from '../utils/errors';
 
 const userProfile = {
   userId: 1,
   funds: {
-    USD: 5,
-    ETH: 5
+    ETH: 5,
+    [BASE_CURRENCY]: 10
   }
 };
 
-const transactionInfoWithLessAmount = { userId: 1, currencyName: 'ETH', amount: 5, price: 1 };
-const transactionInfoWithMoreAmount = { userId: 1, currencyName: 'ETH', amount: 10, price: 1 };
-
-describe('isBaseCurrencySufficient function', () => {
+describe('hasSufficientFunds function', () => {
   beforeAll(async () => {
-    await localforage.setItem(USERS_PROFILES, [userProfile]);
+    await database.setItem(USERS_PROFILES, [userProfile]);
   });
 
-  it('should return true if user have enough currency to buy crypto', async () => {
-    expect(await isBaseCurrencySufficient(transactionInfoWithLessAmount)).toBe(true);
+  it('should return true when user have enough funds to buy crypto', async () => {
+    expect(await hasSufficientFunds({
+      userId: 1,
+      wallet: walletService,
+      currencyName: 'ETH',
+      amountToPay: 2
+    })).toBe(true);
+
+    expect(await hasSufficientFunds({
+      userId: 1,
+      wallet: walletService,
+      currencyName: 'ETH',
+      amountToPay: 5
+    })).toBe(true);
   });
 
-  it('should return false if user do not have enough currency to buy crypto', async () => {
-    expect(await isBaseCurrencySufficient(transactionInfoWithMoreAmount)).toBe(false);
+  it('should return false when user do not have enough funds to buy crypto', async () => {
+    expect(await hasSufficientFunds({
+      userId: 1,
+      wallet: walletService,
+      currencyName: 'ETH',
+      amountToPay: 10
+    })).toBe(false);
   });
 });
 
-describe('isCryptocurrencySufficient function', () => {
-  beforeAll(async () => {
-    await localforage.setItem(USERS_PROFILES, [userProfile]);
-  });
-
-  it('should return true if user have enough crypto to sell', async () => {
-    expect(await isBaseCurrencySufficient(transactionInfoWithLessAmount)).toBe(true);
-  });
-
-  it('should return false if user do not have enough crypto to sell', async () => {
-    expect(await isBaseCurrencySufficient(transactionInfoWithMoreAmount)).toBe(false);
-  });
-});
-
-describe('registerExchangeQuery function', () => {
+describe('exchangeCrypto function', () => {
   beforeEach(async () => {
-    await localforage.clear();
+    await database.setItem(USERS_PROFILES, [userProfile]);
   });
 
-  it('should save information with datastamp about incoming transaction', async () => {
-    await transactionService.registerExchangeQuery(transactionInfoWithLessAmount);
-    const [{ amount, currencyName, price, time, userId }] = await localforage.getItem(TRANSACTIONS_HISTORY_KEY);
-    expect({ amount, currencyName, price, userId })
-      .toStrictEqual(transactionInfoWithLessAmount);
-    expect(time)
-      .toBeDefined();
+  it('should correctly exchange currency', async () => {
+    await exchangeCrypto({
+      userId: 1,
+      wallet: walletService,
+      currencyToBuy: 'ETH',
+      currencyToPay: BASE_CURRENCY,
+      amountToBuy: 5,
+      amountToPay: 10
+    });
+
+    expect((await database.getItem(USERS_PROFILES))[0].funds).toStrictEqual({ ETH: 10, [BASE_CURRENCY]: 0 });
   });
 
-  it('should not delete a history of the other transations', async () => {
-    await transactionService.registerExchangeQuery(transactionInfoWithLessAmount);
-    await transactionService.registerExchangeQuery(transactionInfoWithMoreAmount);
-    expect(await localforage.getItem(TRANSACTIONS_HISTORY_KEY)).toHaveLength(2);
+  it('should throw error if user do not have enough funds', async () => {
+    expect(exchangeCrypto({
+      userId: 1,
+      wallet: walletService,
+      currencyToBuy: 'ETH',
+      currencyToPay: BASE_CURRENCY,
+      amountToBuy: 5,
+      amountToPay: 15
+    })).rejects.toThrow(new Error(NOT_ENOUGH_FUNDS));
   });
 });
-
-// describe('exchange function', () => {
-
-// });

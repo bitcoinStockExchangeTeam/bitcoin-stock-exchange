@@ -1,43 +1,38 @@
-import localforage from 'localforage';
-import { BASE_CURRENCY, USERS_PROFILES } from '../utils/constants';
-
-export const addCurrency = (userProfile, currencyName, amount) => {
-  userProfile.funds[currencyName] += amount;
-};
+import { USERS_PROFILES } from '../utils/constants';
+import database from '../utils/database';
 
 export const getUserById = async (userId) => (
-  (await localforage.getItem(USERS_PROFILES))
-    ?.find((user) => user.userId === userId)
+  (await database.getItem(USERS_PROFILES)).find((user) => user.userId === userId)
 );
 
-export default {
-  async getAvailableUserFunds(userId, currencyName) {
-    try {
-      const userFunds = (await getUserById(userId))?.funds;
-      return userFunds[currencyName] ?? 0;
-    } catch (err) {
-      console.log(err);
-      return 0;
-    }
+const updateFunds = async ({ userId, currencyName, newFunds }) => {
+  const usersProfiles = await database.getItem(USERS_PROFILES);
+  const userIndex = usersProfiles.findIndex((user) => user.userId === userId);
+
+  usersProfiles[userIndex].funds[currencyName] = newFunds;
+
+  await database.setItem(USERS_PROFILES, usersProfiles);
+};
+
+const walletService = {
+  async getFunds({ userId, currencyName }) {
+    const userFunds = (await getUserById(userId)).funds;
+    return currencyName ? userFunds[currencyName] ?? 0 : userFunds;
   },
-  async exchangeCurrency({ userId, currencyName, amount, price }) {
-    try {
-      const usersProfiles = await localforage.getItem(USERS_PROFILES);
-      const userIndex = usersProfiles.findIndex((user) => user.userId === userId);
 
-      if (userIndex === -1) {
-        throw new Error('No such user in database');
-      }
+  async addFunds({ userId, currencyName, amount }) {
+    const oldFunds = await walletService.getFunds({ userId, currencyName });
+    const newFunds = oldFunds + amount;
 
-      addCurrency(usersProfiles[userIndex], BASE_CURRENCY, -amount * price);
-      addCurrency(usersProfiles[userIndex], currencyName, amount);
+    await updateFunds({ userId, currencyName, newFunds });
+  },
 
-      await localforage.setItem(USERS_PROFILES, usersProfiles);
+  async subtractFunds({ userId, currencyName, amount }) {
+    const oldFunds = await walletService.getFunds({ userId, currencyName });
+    const newFunds = oldFunds - amount;
 
-      return true;
-    } catch (err) {
-      console.log(err);
-      return false;
-    }
+    await updateFunds({ userId, currencyName, newFunds });
   }
 };
+
+export default walletService;

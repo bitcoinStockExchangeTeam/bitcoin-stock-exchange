@@ -53,10 +53,10 @@ const Transaction = ({ stockExchangeData }) => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
     const { amount, currencyName, isBuying, price } = data;
-    dispatch(makeExchange({ userId: 1, currencyName, amount: isBuying ? amount : -amount, price }));
+
+    // TODO: this is temporary ID and should be replaced by real user ID
+    dispatch(makeExchange({ userId: 1, amount, currencyName, isBuying, price }));
   };
 
   useEffect(() => {

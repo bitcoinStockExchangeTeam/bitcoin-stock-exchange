@@ -1,5 +1,5 @@
-import localforage from 'localforage';
-import walletService, { addCurrency, getUserById } from './walletService';
+import database from '../utils/database';
+import walletService, { getUserById } from './walletService';
 import { USERS_PROFILES } from '../utils/constants';
 
 const userProfile = {
@@ -10,23 +10,9 @@ const userProfile = {
   }
 };
 
-describe('addCurrency function', () => {
-  it('should add specified amount of currency to profile', () => {
-    const amount = 5;
-    addCurrency(userProfile, 'USD', amount);
-    expect(userProfile.funds.USD).toBe(6);
-  });
-
-  it('should substract specified amount of currency to profile', () => {
-    const amount = -5;
-    addCurrency(userProfile, 'ETH', amount);
-    expect(userProfile.funds.ETH).toBe(95);
-  });
-});
-
 describe('getUserById function', () => {
   it('should get user sucessfully', async () => {
-    await localforage.setItem(USERS_PROFILES, [userProfile]);
+    await database.setItem(USERS_PROFILES, [userProfile]);
     expect(await getUserById(1)).toStrictEqual(userProfile);
   });
 
@@ -35,44 +21,54 @@ describe('getUserById function', () => {
   });
 });
 
-describe('getAvailableUserFunds function', () => {
+describe('getFunds function', () => {
   beforeAll(async () => {
     userProfile.funds = {
       USD: 50,
       ETH: 100
     };
-    await localforage.setItem(USERS_PROFILES, [userProfile]);
+    await database.setItem(USERS_PROFILES, [userProfile]);
   });
 
-  it('should return user funds correctly', async () => {
-    expect(await walletService.getAvailableUserFunds(1, 'ETH')).toBe(100);
+  it('should return amount of currency correctly', async () => {
+    expect(await walletService.getFunds({ userId: 1, currencyName: 'ETH' })).toBe(100);
   });
 
   it('should return 0 if user have no such currency', async () => {
-    expect(await walletService.getAvailableUserFunds(1, 'BTC')).toBe(0);
+    expect(await walletService.getFunds({ userId: 1, currencyName: 'BTC' })).toBe(0);
+  });
+
+  it('should return all funds', async () => {
+    expect(await walletService.getFunds({ userId: 1 })).toStrictEqual({ USD: 50, ETH: 100 });
   });
 });
 
-describe('exchangeCurrency function', () => {
+describe('addFunds function', () => {
   beforeEach(async () => {
     userProfile.funds = {
       USD: 50,
       ETH: 100
     };
-    await localforage.setItem(USERS_PROFILES, [userProfile]);
+    await database.setItem(USERS_PROFILES, [userProfile]);
   });
 
-  it('should fail if user does not exist', async () => {
-    expect(await walletService.exchangeCurrency({ userId: -1 })).toBe(false);
+  it('should add currency successfully', async () => {
+    await walletService.addFunds({ userId: 1, currencyName: 'ETH', amount: 20 });
+    expect((await database.getItem(USERS_PROFILES))[0].funds).toStrictEqual({ USD: 50, ETH: 120 });
+  });
+});
+
+describe('subtractFunds function', () => {
+  beforeEach(async () => {
+    userProfile.funds = {
+      USD: 50,
+      ETH: 100
+    };
+    await database.setItem(USERS_PROFILES, [userProfile]);
   });
 
-  it('should buy currency successfully', async () => {
-    expect(await walletService.exchangeCurrency({ userId: 1, currencyName: 'ETH', amount: 20, price: 1 })).toBe(true);
-    expect((await localforage.getItem(USERS_PROFILES))[0].funds).toStrictEqual({ USD: 30, ETH: 120 });
-  });
-
-  it('should sell currency successfully', async () => {
-    expect(await walletService.exchangeCurrency({ userId: 1, currencyName: 'ETH', amount: -20, price: 1 })).toBe(true);
-    expect((await localforage.getItem(USERS_PROFILES))[0].funds).toStrictEqual({ USD: 70, ETH: 80 });
+  it('should subtract currency successfully', async () => {
+    await walletService.subtractFunds({ userId: 1, currencyName: 'USD', amount: 20 });
+    expect((await database.getItem(USERS_PROFILES))[0].funds).toStrictEqual({ USD: 30, ETH: 100 });
   });
 });
