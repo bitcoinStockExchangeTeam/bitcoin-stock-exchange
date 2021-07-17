@@ -1,5 +1,5 @@
 import axios from 'axios';
-import BASE_CURRENCY from '../../../utils/constants';
+import { BASE_CURRENCY } from '../../../utils/constants';
 
 export const STOCK_GET_INIT = 'stock/get/init';
 export const STOCK_GET_SUCCESS = 'stock/get/success';

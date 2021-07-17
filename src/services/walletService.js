@@ -7,13 +7,13 @@ export const addCurrency = (userProfile, currencyName, amount) => {
 
 export const getUserById = async (userId) => (
   (await localforage.getItem(USERS_PROFILES))
-    .find((user) => user.userId === userId)
+    ?.find((user) => user.userId === userId)
 );
 
 export default {
   async getAvailableUserFunds(userId, currencyName) {
     try {
-      const userFunds = (await getUserById(userId)).funds;
+      const userFunds = (await getUserById(userId))?.funds;
       return userFunds[currencyName] ?? 0;
     } catch (err) {
       console.log(err);

@@ -2,7 +2,7 @@ import React from 'react';
 import * as Component from '@material-ui/core';
 import PropTypes from 'prop-types';
 import colors from '../../utils/colors';
-import BASE_CURRENCY from '../../utils/constants';
+import { BASE_CURRENCY } from '../../utils/constants';
 
 const roundNumber = (number) => (Math.round(number * 100) / 100).toFixed(2);
 

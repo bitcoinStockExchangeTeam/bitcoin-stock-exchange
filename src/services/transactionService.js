@@ -19,14 +19,10 @@ export const isCryptocurrencySufficient = async (transactionInfo) => isCurrencyS
 
 export default {
   async registerExchangeQuery(transactionInfo) {
-    try {
-      const transactionsHistory = await localforage.getItem(TRANSACTIONS_HISTORY_KEY) ?? [];
-      const newTransactionQuery = { time: Date.now(), ...transactionInfo };
-      const newTransactionsHistory = [newTransactionQuery, ...transactionsHistory];
-      await localforage.setItem(TRANSACTIONS_HISTORY_KEY, newTransactionsHistory);
-    } catch (err) {
-      console.log(err);
-    }
+    const transactionsHistory = await localforage.getItem(TRANSACTIONS_HISTORY_KEY) ?? [];
+    const newTransactionQuery = { time: Date.now(), ...transactionInfo };
+    const newTransactionsHistory = [newTransactionQuery, ...transactionsHistory];
+    await localforage.setItem(TRANSACTIONS_HISTORY_KEY, newTransactionsHistory);
   },
 
   async exchange(transactionInfo) {
@@ -35,7 +31,7 @@ export default {
       : isCryptocurrencySufficient;
 
     if (!await isSufficient(transactionInfo)) {
-      return false;
+      throw new Error('Failed to make exchange');
     }
     return walletService.exchangeCurrency(transactionInfo);
   }
