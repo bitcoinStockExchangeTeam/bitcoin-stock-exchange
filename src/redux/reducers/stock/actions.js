@@ -32,7 +32,8 @@ const AVAILABLE_STOCKS = [
 const BASE_URL = 'https://api.coingecko.com/api/v3/coins/markets';
 
 const fetchStockData = async () => {
-  const url = `${BASE_URL}?vs_currency=${BASE_CURRENCY}&ids=${AVAILABLE_STOCKS.join(',')}`;
+  const cacheBuster = Math.round(new Date().getTime() / 1000);
+  const url = `${BASE_URL}?vs_currency=${BASE_CURRENCY}&ids=${AVAILABLE_STOCKS.join(',')}&cb=${cacheBuster}`;
   const { data } = await axios.get(url);
   return data;
 };
