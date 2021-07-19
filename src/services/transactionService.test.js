@@ -1,6 +1,6 @@
 import database from '../utils/database';
 import walletService from './walletService';
-import { hasSufficientFunds, exchangeCrypto } from './transactionService';
+import { validateIfUserHasSufficientFunds, exchangeCrypto } from './transactionService';
 import { USERS_PROFILES, BASE_CURRENCY } from '../utils/constants';
 import { NOT_ENOUGH_FUNDS } from '../utils/errors';
 
@@ -12,34 +12,34 @@ const userProfile = {
   }
 };
 
-describe('hasSufficientFunds function', () => {
+describe('validateIfUserHasSufficientFunds function', () => {
   beforeAll(async () => {
     await database.setItem(USERS_PROFILES, [userProfile]);
   });
 
-  it('should return true when user have enough funds to buy crypto', async () => {
-    expect(await hasSufficientFunds({
+  it('should not throw error when user have enough funds to buy crypto', async () => {
+    expect(validateIfUserHasSufficientFunds({
       userId: 1,
       wallet: walletService,
       currencyName: 'ETH',
       amountToPay: 2
-    })).toBe(true);
+    })).resolves.not.toThrow();
 
-    expect(await hasSufficientFunds({
+    expect(validateIfUserHasSufficientFunds({
       userId: 1,
       wallet: walletService,
       currencyName: 'ETH',
       amountToPay: 5
-    })).toBe(true);
+    })).resolves.not.toThrow();
   });
 
-  it('should return false when user do not have enough funds to buy crypto', async () => {
-    expect(await hasSufficientFunds({
+  it('should throw error when user do not have enough funds to buy crypto', async () => {
+    expect(validateIfUserHasSufficientFunds({
       userId: 1,
       wallet: walletService,
       currencyName: 'ETH',
       amountToPay: 10
-    })).toBe(false);
+    })).rejects.toThrow(new Error(NOT_ENOUGH_FUNDS));
   });
 });
 

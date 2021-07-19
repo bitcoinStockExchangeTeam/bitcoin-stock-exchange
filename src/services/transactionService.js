@@ -2,15 +2,16 @@ import walletService from './walletService';
 import { BASE_CURRENCY } from '../utils/constants';
 import { NOT_ENOUGH_FUNDS } from '../utils/errors';
 
-export const hasSufficientFunds = async ({ userId, wallet, currencyName, amountToPay }) => {
+export const validateIfUserHasSufficientFunds = async ({ userId, wallet, currencyName, amountToPay }) => {
   const availableFunds = await wallet.getFunds({ userId, currencyName });
-  return availableFunds >= amountToPay;
+
+  if (availableFunds < amountToPay) {
+    throw new Error(NOT_ENOUGH_FUNDS);
+  }
 };
 
 export const exchangeCrypto = async ({ userId, wallet, currencyToBuy, currencyToPay, amountToBuy, amountToPay }) => {
-  if (!await hasSufficientFunds({ userId, wallet, currencyName: currencyToPay, amountToPay })) {
-    throw new Error(NOT_ENOUGH_FUNDS);
-  }
+  await validateIfUserHasSufficientFunds({ userId, wallet, currencyName: currencyToPay, amountToPay });
 
   await wallet.addFunds({ userId, currencyName: currencyToBuy, amount: amountToBuy });
   await wallet.subtractFunds({ userId, currencyName: currencyToPay, amount: amountToPay });
